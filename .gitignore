@@ -1,0 +1,26 @@
+# Dataset dosyalari
+*.csv
+*.parquet
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# Gizli bilgiler
+.env
+.env.*
+
+# Model dosyalari
+*.pkl
+*.joblib
+*.h5
+*.pt
+*.pth
+
+# Sistem dosyalari
+.DS_Store
