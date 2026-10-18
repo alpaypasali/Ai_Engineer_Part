@@ -7,7 +7,11 @@ from preprocessing import clean_text
 
 
 # 1. Modeli yükle
-MODEL_PATH = "/home/pasali/Desktop/Data/AI-Engineer/Hafta-1/Data_ComplainRouter/models/complaintrouter_lr.joblib"
+
+PROJECT_ROOT = Path(__file__).resolve().parent
+
+MODEL_PATH = PROJECT_ROOT / "models" / "complaintrouter_lr.joblib"
+
 
 model = joblib.load(MODEL_PATH)
 
