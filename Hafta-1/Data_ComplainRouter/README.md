@@ -1,38 +1,54 @@
 # ComplaintRouter AI
 
-**Finansal tüketici şikâyetlerini sınıflandıran uçtan uca NLP projesi**  
-**TF-IDF · Logistic Regression · PyTorch MLP · Scikit-learn Pipeline · Terminal Uygulaması**
+**Finansal müşteri şikâyetlerini sınıflandıran bir NLP projesi — model deneyinden çalışan CLI ve FastAPI servisine.**
 
-ComplaintRouter AI, İngilizce tüketici şikâyeti metinlerini dört finansal ürün kategorisinden birine yönlendirmek için geliştirilmiş bir makine öğrenmesi projesidir. Çalışma yalnızca bir notebook deneyinden ibaret değildir: **veri inceleme, model karşılaştırma, hata analizi, modeli diske kaydetme, terminalden tahmin ve düşük olasılıklı sonuçları insan incelemesine yönlendirme** aşamalarını içerir.
+`Python` · `Scikit-learn` · `TF-IDF` · `PyTorch` · `FastAPI` · `Pytest`
 
-> **Proje durumu:** Çalışan bir prototip. Üretim ortamına hazır değildir. Özellikle bağımsız test değerlendirmesi, olasılık kalibrasyonu, alan dışı (OOD) girdi yönetimi ve otomatik testlerin tamamlanması gerekir.
+Bu projeye basit bir soruyla başladım: *Bir müşteri şikâyeti geldiğinde, onu ilgili finansal ürün kategorisine otomatik olarak yönlendirebilir miyim?* İlk adımda farklı sınıflandırma modellerini karşılaştırdım. Ardından seçtiğim modeli kaydedip terminalden ve bir REST API üzerinden kullanılabilir hâle getirdim.
 
-## İçindekiler
+Projenin benim için en öğretici tarafı, daha büyük bir sinir ağının mutlaka daha iyi sonuç vermediğini görmek oldu. Denediğim PyTorch MLP modelleri, bu veri ve değerlendirme koşullarında Logistic Regression baseline'ını geçemedi. Bu yüzden uygulamanın ilk sürümünde **TF-IDF + Logistic Regression** kullanıyorum.
 
-- [Problem ve kapsam](#problem-ve-kapsam)
-- [Proje akışı](#proje-akışı)
-- [Veri seti ve kategoriler](#veri-seti-ve-kategoriler)
-- [Modeller ve deney sonuçları](#modeller-ve-deney-sonuçları)
-- [Eğitim ve değerlendirme yöntemi](#eğitim-ve-değerlendirme-yöntemi)
-- [Terminal uygulaması](#terminal-uygulaması)
-- [Human Review mekanizması](#human-review-mekanizması)
-- [Yapılan uygulama testleri](#yapılan-uygulama-testleri)
-- [Kurulum ve çalıştırma](#kurulum-ve-çalıştırma)
-- [Proje yapısı](#proje-yapısı)
-- [Sınırlamalar ve sonraki adımlar](#sınırlamalar-ve-sonraki-adımlar)
+**Şu anki durum:** Yerelde çalışan CLI ve FastAPI prototipi; paylaştığım son test çalıştırmasında **11/11 pytest testi başarılı**. Bu, sistemin üretime hazır olduğu anlamına gelmiyor. Bağımsız nihai test, olasılık kalibrasyonu ve daha kapsamlı veri kontrolleri hâlâ geliştirilmesi gereken alanlar.
 
-## Problem ve kapsam
+[Sonuçlar](#model-deneyleri-ve-sonuçlar) · [Uygulama demosu](#uygulama-nasıl-çalışıyor) · [API](#fastapi-ile-http-servisi) · [Testler](#otomatik-testler) · [Kurulum](#kurulum-ve-çalıştırma) · [Sınırlamalar](#sınırlamalar-ve-sonraki-adımlar)
 
-**Girdi:** İngilizce bir `Consumer complaint narrative` (tüketici şikâyet metni).  
-**Çıktı:** Tahmin edilen finansal ürün kategorisi, o sınıfa atanan model olasılığı ve yönlendirme durumu.
+---
 
-Örnek terminal kullanımı:
+## Uygulama nasıl çalışıyor?
 
-```bash
-python notebooks/predict.py --text "My mortgage payment is incorrect"
+Uygulamaya İngilizce bir şikâyet metni verildiğinde model dört finansal kategoriden birini seçiyor, o sınıfa ait tahmin olasılığını döndürüyor ve sonuca göre otomatik yönlendirme veya insan incelemesi öneriyor.
+
+```text
+Şikâyet metni
+     │
+     ▼
+Girdi kontrolü
+     │
+     ▼
+Metin temizleme (FunctionTransformer)
+     │
+     ▼
+TF-IDF (3.000 özellik)
+     │
+     ▼
+Logistic Regression
+     │
+     ├── Tahmin edilen kategori
+     ├── Sınıf olasılığı
+     └── Yönlendirme kararı
+             ├── ≥ 0.60 → automatic
+             └── < 0.60 → human_review
 ```
 
-Gerçekleştirilen örnek çalıştırmalardan biri:
+Aynı tahmin mantığını hem komut satırı uygulaması hem de API kullanıyor. Böylece modeli farklı arayüzlerde yeniden yazmam gerekmiyor.
+
+### Terminalden örnek tahmin
+
+```bash
+python predict.py --text "My mortgage payment is incorrect"
+```
+
+Yerel çalıştırmadan alınan sonuç:
 
 ```text
 ComplaintRouter AI
@@ -42,345 +58,283 @@ Probability: 0.94
 Status: Automatic
 ```
 
-Model yalnızca eğitimdeki **dört kategori** arasından seçim yapabilir. Düşük olasılıklı tahminler, prototipte insan incelemesine yönlendirilir; bu mekanizma alan dışı girdileri güvenilir biçimde tespit eden ayrı bir OOD modeli değildir.
+![ComplaintRouter terminal çıktısı: Mortgage, 0.94, Automatic](figures/cli_prediction.png)
 
-## Proje akışı
+> Bu bir örnek tahmin çıktısıdır; modelin genel doğruluğunu tek başına göstermez.
 
-### 1. Veri hazırlama ve model geliştirme
+---
 
-```text
-complaints_train_5000.csv
-          │
-          ▼
-Veri inceleme ve etiket eşleştirmesi
-          │
-          ▼
-Metin temizleme
-          │
-          ▼
-Stratified eğitim / holdout ayrımı
-          │
-          ▼
-TF-IDF (eğitim setinde fit)
-          │
-          ├── Logistic Regression (baseline)
-          │
-          └── PyTorch MLP (128 / 256 gizli nöron)
-                      │
-                      ▼
-         Accuracy · Macro-F1 · Confusion Matrix
+## FastAPI ile HTTP servisi
+
+Modeli yalnızca terminalden kullanmakla kalmak istemedim. Bir CRM veya müşteri destek uygulamasının da çağırabilmesi için basit bir **REST API** ekledim.
+
+| Yöntem | Endpoint | İşlev |
+|---|---|---|
+| `GET` | `/health` | Servisin çalıştığını kontrol eder. |
+| `POST` | `/predict` | Şikâyet metni için kategori, olasılık ve yönlendirme durumunu döndürür. |
+
+### `POST /predict`
+
+İstek:
+
+```http
+POST /predict
+Content-Type: application/json
 ```
 
-### 2. Kaydedilmiş model ile tahmin
-
-```text
-Terminal: --text "şikâyet metni"
-          │
-          ▼
-Girdi doğrulama
-          │
-          ▼
-Kaydedilmiş Scikit-learn Pipeline
-  ├─ FunctionTransformer → clean_texts()
-  ├─ TfidfVectorizer (max_features=3000)
-  └─ LogisticRegression
-          │
-          ▼
-predict() + predict_proba()
-          │
-          ▼
-Kategori adı + olasılık
-          │
-          ├─ Olasılık ≥ 0.60 → Automatic
-          └─ Olasılık < 0.60 → Human Review Required
-```
-
-Tahmin fonksiyonu, temizleme sonrası boş kalan metinleri reddeder. **Pipeline temizlemeyi içerdiğinden, tahmin için ham metin Pipeline'a verilir**; aynı temizleme dışarıda tekrar uygulanarak modele ikinci kez zorunlu tutulmaz.
-
-## Veri seti ve kategoriler
-
-- **Kaynak çalışma dosyası:** `data/complaints_train_5000.csv`
-- **Kayıt sayısı:** 5.000
-- **Metin alanı:** `Consumer complaint narrative`
-- **Hedef alan:** `Product`
-- `Complaint ID`, modelin giriş özelliği olarak kullanılmaz.
-
-| Sayısal etiket | Ürün kategorisi |
-|---:|---|
-| 0 | Credit reporting, credit repair services, or other personal consumer reports |
-| 1 | Debt collection |
-| 2 | Credit reporting |
-| 3 | Mortgage |
-
-**Önemli veri notu:** `0` ve `2` etiketleri, adlarından da anlaşılacağı üzere birbirine yakın kredi raporlama başlıklarıdır. Bu benzerlik modelin sınıfları karıştırmasına katkıda bulunabilir.
-
-Ham şikâyetler kişisel veri içerebilir. **Veri setini paylaşmadan önce lisans koşullarını, kişisel bilgi riskini ve GitHub'a yükleme iznini kontrol edin.**
-
-## Modeller ve deney sonuçları
-
-Aynı proje kapsamında kelime tabanlı TF-IDF özellikleriyle Logistic Regression baseline'ı ve PyTorch çok katmanlı algılayıcılar (MLP) karşılaştırıldı.
-
-| Deney | TF-IDF özellik sayısı | Accuracy | Macro-F1 |
-|---|---:|---:|---:|
-| **Logistic Regression (baseline)** | **3.000** | **%72,60** | **0,7231** |
-| Logistic Regression (baseline) | 1.500 | %72,30 | 0,7197 |
-| PyTorch MLP — 128 gizli nöron | 1.500 | %67,30 | 0,6739 |
-| PyTorch MLP — 256 gizli nöron | 1.500 | Ölçülmedi / raporlanmadı | 0,6730 |
-
-**Sonuç:** Kaydedilen deneylerde **3.000 özellikli Logistic Regression**, değerlendirilen MLP alternatiflerinden daha iyi Macro-F1 elde etti. Bu nedenle terminal uygulamasında Logistic Regression Pipeline'ı kullanılıyor.
-
-MLP-256 için son eğitim kaybı **0,0406** olmasına rağmen Macro-F1 (**0,6730**), MLP-128'den (**0,6739**) az da olsa düşüktü. Daha düşük *training loss*, otomatik olarak daha iyi genelleme anlamına gelmez. Bu küçük MLP farkı tek başına istatistiksel anlamlılık göstermez.
-
-### Logistic Regression baseline ayarları
-
-Terminal uygulamasında kullanılan kaydedilmiş Pipeline şu bileşenlerden oluşur:
-
-```python
-Pipeline(steps=[
-    ("clean_text", FunctionTransformer(clean_texts, validate=False)),
-    ("tfidf", TfidfVectorizer(max_features=3000)),
-    ("classifier", LogisticRegression(
-        C=1, max_iter=1000, penalty="l2", solver="newton-cg"
-    )),
-])
-```
-
-Metin temizleme adımı; boş/eksik değerleri ele alır, küçük harfe çevirir, `XXXX` benzeri maskeleri ve noktalama işaretlerini kaldırır, fazla boşlukları tekilleştirir. **Aynı fonksiyonun eğitimde ve tahminde kullanılması**, öğrenilen TF-IDF özelliklerinin anlamının korunması açısından önemlidir.
-
-### PyTorch MLP mimarisi
-
-```text
-TF-IDF (1.500 boyut)
-        ↓
-Linear(1500, 128 veya 256) + ReLU
-        ↓
-Linear(128 veya 256, 32) + ReLU
-        ↓
-Linear(32, 4) → logits
-```
-
-| Özellik | MLP-128 | MLP-256 |
-|---|---:|---:|
-| Eğitilebilir parametre | 196.388 | 392.612 |
-| Loss | CrossEntropyLoss | CrossEntropyLoss |
-| Optimizer | Adam, lr=0.001 | Adam, lr=0.001 |
-| Batch size | 32 | 32 |
-| Epoch | 10 | 10 |
-
-`CrossEntropyLoss`, logits üzerinden gerekli olasılık hesabını kendi içinde gerçekleştirdiğinden eğitim modelinin sonuna ayrıca `Softmax` eklenmedi.
-
-### Hata analizi
-
-MLP-128 deneyinde en zor ayrıştırılan iki sınıf:
-
-- **Sınıf 0:** F1 = 0,53
-- **Sınıf 2:** F1 = 0,56
-
-Confusion matrix kaydında bu sınıflar arasında **155 karışıklık** görüldü: `0 → 2` için 76, `2 → 0` için 79 örnek. En yüksek F1, **Mortgage** sınıfındaydı (**0,89**). Kredi raporlama etiketlerinin semantik benzerliği olası bir neden olsa da bunun doğrulanması için hatalı sınıflandırılmış metinleri tek tek incelemek gerekir.
-
-## Eğitim ve değerlendirme yöntemi
-
-- `train_test_split(test_size=0.2, random_state=42, stratify=y)` kullanıldı.
-- **4.000 eğitim** ve **1.000 holdout** örneği elde edildi.
-- Holdout kümesinde her sınıftan **250 örnek** bulunuyordu.
-- TF-IDF kelime sözlüğü ve IDF değerleri yalnızca eğitim verisinde öğrenildi (`fit_transform`); holdout üzerinde yalnızca `transform` kullanıldı.
-- Model karşılaştırmalarında Accuracy, Macro-F1, sınıf bazlı rapor ve confusion matrix incelendi.
-
-> **Değerlendirme sınırlaması:** Eski deneylerde `val_loader` adını taşıyan veri aslında `X_test`/holdout bölümünden geliyordu. Aynı holdout, hiperparametre/model karşılaştırmasında da kullanıldığı için **tamamen bağımsız, nihai test sonucu** olarak yorumlanmamalıdır. Gelecek iterasyonda ayrı **train / validation / test** ayrımı kullanılacak ve final test kümesine model seçimi tamamlandıktan sonra bakılacaktır.
-
-128 ve 256 nöronlu MLP deneyleri için veri sırası, DataLoader karıştırması ve random seed'in her koşulda birebir eşitlendiği doğrulanmadığından bu sonuçlar sınırlı bir karşılaştırmadır.
-
-## Terminal uygulaması
-
-Uygulama `notebooks/predict.py` dosyasındadır. `argparse` kullanır; notebook açmadan komut satırından çalıştırılabilir.
-
-```bash
-python notebooks/predict.py --text "I received a debt collection notice for a debt I already paid."
-```
-
-Örnek sonuç:
-
-```text
-ComplaintRouter AI
--------------------------------
-Category: Debt collection
-Probability: 0.99
-Status: Automatic
-```
-
-Uygulamanın temel işlevleri:
-
-1. **Girdi denetimi:** `None`/string olmayan değerler, boş veya yalnızca boşluk içeren metinler ve temizlik sonrası boş kalan metinler reddedilir.
-2. **Ortak preprocessing:** `preprocessing.py` içindeki `clean_text()` ve `clean_texts()` kullanılır.
-3. **Model yükleme:** Kaydedilmiş `models/complaintrouter_lr.joblib`, `joblib.load()` ile yüklenir; her tahminde yeniden eğitim yapılmaz.
-4. **Tahmin:** `predict()` ile kategori, `predict_proba()` ile sınıf olasılıkları hesaplanır.
-5. **Sonuç biçimi:** `category`, `probability` ve `status` alanları bir sözlükten terminale yazdırılır.
-
-Tahmin fonksiyonunun döndürdüğü örnek sözlük:
-
-```python
+```json
 {
-    "category": "Mortgage",
-    "probability": 0.94,
-    "status": "automatic"
+  "text": "My mortgage payment is incorrect"
 }
 ```
 
-Terminal arayüzü durumu `Automatic` / `Human Review Required` biçiminde gösterir.
+Yerel testte alınan yanıt (**HTTP 200**):
 
-### Model Persistence
+```json
+{
+  "category": "Mortgage",
+  "probability": 0.94,
+  "status": "automatic"
+}
+```
 
-Scikit-learn `Pipeline`, temizleme dönüştürücüsünü, **TF-IDF sözlüğünü/IDF değerlerini** ve **öğrenilmiş Logistic Regression parametrelerini** birlikte saklar. Kaydedilen nesne sayesinde her terminal çağrısında model yeniden eğitilmez.
+![FastAPI Swagger arayüzünde POST /predict isteği ve JSON yanıtı](figures/fastapi_predict.png)
 
-`FunctionTransformer` içindeki kullanıcı tanımlı fonksiyonların yükleme sırasında bulunabilmesi için `preprocessing.py` modülünün aynı Python ortamında erişilebilir olması gerekir.
+### `GET /health`
 
-> **Güvenlik:** `joblib.load()`, pickle tabanlı mekanizma nedeniyle güvenilmeyen dosyalar yüklenirken zararlı kod çalıştırabilir. Rastgele internet kaynaklarından indirilen `.joblib` dosyalarını doğrudan yüklemeyin.
+Servisin ayakta olduğunu kontrol etmek için ayrı bir endpoint oluşturdum. Yerel testte **HTTP 200** döndürüyor:
 
-## Human Review mekanizması
+```json
+{
+  "status": "ok",
+  "service": "ComplaintRouter"
+}
+```
 
-Prototipte aşağıdaki iş kuralı uygulanır:
+<details>
+<summary><strong>GET /health ekran görüntüsü</strong></summary>
 
-| En yüksek sınıf olasılığı | Durum |
+![FastAPI Swagger arayüzünde GET /health yanıtı](figures/fastapi_health.png)
+
+</details>
+
+API'yi başlattıktan sonra Swagger arayüzüne `http://127.0.0.1:8000/docs` adresinden ulaşılabiliyor. Buradaki ekran görüntüleri yerel geliştirme ortamından alındı; internete açık bir sunucuya dağıtım yapılmış değil.
+
+### İnsan incelemesine yönlendirme
+
+Her tahmini otomatik işlemek doğru olmayabilir. Bu nedenle ilk prototipte basit bir eşik kullandım:
+
+- **En yüksek sınıf olasılığı ≥ 0,60:** `automatic`
+- **En yüksek sınıf olasılığı < 0,60:** `human_review`
+
+Bu **0,60 değeri deneysel bir iş kuralı**; kalibre edilmiş bir güven eşiği değil. `predict_proba()` çıktısındaki %94, gerçek dünyada tahminlerin tam olarak %94'ünün doğru olduğu anlamına gelmez. Ayrıca alan dışı şikâyetlerin her zaman düşük olasılıkla tespit edileceğinin garantisi yok.
+
+---
+
+## Otomatik testler
+
+API'yi çalıştırdıktan sonra farklı girdilerde nasıl davranacağını kontrol etmek için `pytest` testleri hazırladım. Paylaştığım son yerel çalıştırmada **11 testin tamamı geçti**.
+
+```bash
+pytest -v
+```
+
+![Pytest çıktısı: 11 test başarılı](figures/pytest_11_passed.png)
+
+Testler iki parçaya ayrılıyor:
+
+| Dosya | Kontrol edilen davranışlar |
 |---|---|
-| `>= 0.60` | `Automatic` |
-| `< 0.60` | `Human Review Required` |
+| `tests/test_prediction.py` | Boş metin, yalnızca boşluk, `None`, geçerli tahmin sözlüğü, olasılık aralığı, model dosyasının eksik olması |
+| `tests/test_api.py` | Boş/eksik metin, CLI–API tahmin tutarlılığı, insan incelemesi kararı, modelin tekrar tekrar yüklenmemesi |
 
-Örnek olarak **%46** olasılıklı bir Mortgage tahmini insan incelemesine yönlendirilmiştir.
+Bu testlerin geçmesi önemli bir adım; ancak **11 başarılı uygulama testi, modelin %100 doğru olduğu anlamına gelmiyor**. Model performansını ayrı bir değerlendirme kümesinde ölçüyorum.
 
-**%60 eşiği doğrulanmış bir güven sınırı değildir.** Gerçek uygulamada eşik; validation sonuçları, olasılık kalibrasyonu, yanlış yönlendirme maliyeti ve iş süreçleriyle belirlenmelidir. `predict_proba()` çıktısındaki %90 değer, otomatik olarak %90 gerçek doğruluk anlamına gelmez.
+---
 
-En yüksek iki sınıf olasılığı arasındaki fark (**prediction margin**) da belirsizlik için ek sinyal olabilir. Örneğin `0.46` ve `0.44` arasındaki fark yalnızca `0.02`'dir. Ancak küçük margin veya düşük maksimum olasılık, tek başına güvenilir bir OOD tespit yöntemi değildir.
+## Model deneyleri ve sonuçlar
 
-## Yapılan uygulama testleri
+Projede önce klasik makine öğrenmesi baseline'ı oluşturdum. Sonra aynı problem için PyTorch ile iki farklı MLP eğittim.
 
-Aşağıdaki sonuçlar terminal uygulamasında gözlemlenen **örnek çalıştırmalardır**; toplu değerlendirme ölçütlerinin yerine geçmez.
+| Model | TF-IDF özellik sayısı | Accuracy | Macro-F1 |
+|---|---:|---:|---:|
+| **Logistic Regression** | **3.000** | **%72,60** | **0,7231** |
+| Logistic Regression | 1.500 | %72,30 | 0,7197 |
+| PyTorch MLP — 128 | 1.500 | %67,30 | 0,6739 |
+| PyTorch MLP — 256 | 1.500 | Ölçülmedi | 0,6730 |
 
-| Senaryo | Girdi / durum | Gözlenen çıktı |
-|---|---|---|
-| Debt Collection | Önceden ödenmiş borç için tahsilat bildirimi | `Debt collection` · **0.99** · `Automatic` |
-| Mortgage | Yanlış aylık konut kredisi ödemesi | `Mortgage` · **0.87** · `Automatic` |
-| Credit Reporting | Kredi raporunda hatalı ödeme geçmişi | `Credit reporting` · **0.62** · `Automatic` |
-| Boş metin | `--text ""` | Anlaşılır hata mesajı |
-| Sadece boşluk | `--text "     "` | Anlaşılır hata mesajı |
-| Düşük olasılık | Belirsiz ödeme şikâyeti | `Mortgage` · **0.46** · `Human Review Required` |
-| Çok uzun metin | Mortgage cümlesi 1.000 kez tekrarlandı | `Mortgage` · **0.95**; çökmeden tamamlandı |
-| Alan dışı (OOD) örneği | `My laptop battery is not working.` | `Credit reporting` · **0.32** · `Human Review Required` |
+Bu değerler **4.000 eğitim / 1.000 holdout** ayrımına dayanan kayıtlı deney sonuçlarıdır. Holdout verisi model karşılaştırmasında da kullanıldığı için sonuçları bağımsız, nihai test performansı olarak sunmuyorum. Ayrıca 3.000 özellikli Logistic Regression ile 1.500 özellikli MLP karşılaştırmasında yalnızca algoritma değil, özellik sayısı da farklı.
 
-**OOD yorumu:** Dizüstü bilgisayar arızası dört finans kategorisine ait değildir; buna rağmen kapalı-küme sınıflandırıcı mevcut sınıflardan birini seçmiştir. Düşük olasılık nedeniyle incelemeye yönlendirilmesi yararlı olsa da model **"bilinmeyen kategori"** etiketini doğrudan üretmez ve yüksek olasılıklı OOD hataları hâlâ mümkündür.
+### Neden Logistic Regression'ı seçtim?
 
-**Henüz doğrulanmamış / tamamlanacak testler:** Eksik model dosyası senaryosunun sistematik testi ve `pytest` ile en az üç otomatik test (boş metin, çıktı sözlüğü şeması, kaydet-yükle tahmin eşitliği). Terminalden ayrı çalıştırmalarda model diskteki dosyadan yeniden yüklenerek kullanılabilmiştir.
+Daha karmaşık ağın daha iyi çalışacağını varsaymıştım. Ancak 256 nöronlu model, eğitim kaybını **0,0406** seviyesine indirirken holdout Macro-F1 değeri **0,6730** oldu. 128 nöronlu modelde ise Macro-F1 **0,6739**.
+
+Yani daha düşük training loss, görmediği verilerde daha iyi sonuç getirmedi. Mevcut ölçümlerde Logistic Regression hem daha güçlü bir referans model hem de uygulama tarafında daha sade bir seçenek oldu.
+
+![128 ve 256 gizli nöronlu MLP modellerinin eğitim kaybı eğrileri](figures/training_loss_comparison.png)
+
+### PyTorch tarafında ne denedim?
+
+İki ağın da girişi 1.500 boyutlu TF-IDF vektörü. Gizli katman boyutlarını değiştirerek aynı sınıflandırma problemini çözdüm:
+
+```text
+MLP-128: 1500 → 128 → 32 → 4    (196.388 parametre)
+MLP-256: 1500 → 256 → 32 → 4    (392.612 parametre)
+```
+
+- Gizli katmanlarda `ReLU` kullandım.
+- Son katman dört sınıfa ait **logits** üretiyor.
+- Eğitimde `CrossEntropyLoss` ve `Adam(lr=0.001)` kullandım.
+- `batch_size=32` ile **10 epoch** eğittim.
+- Eğitim döngüsünde `zero_grad → forward → loss → backward → step` akışını kurdum.
+
+### Model en çok nerede yanılıyor?
+
+MLP-128'in confusion matrix'inde en fazla karıştırılan iki sınıf:
+
+- `0`: **Credit reporting, credit repair services, or other personal consumer reports**
+- `2`: **Credit reporting**
+
+Bu iki sınıf arasında toplam **155 yanlış tahmin** var (`0 → 2`: 76, `2 → 0`: 79). Modelin en başarılı olduğu sınıf ise **Mortgage** (`F1 ≈ 0,89`).
+
+![MLP-128 için confusion matrix](figures/confusion_matrix_mlp128.png)
+
+Kredi raporlama kategorilerinin adları ve şikâyet dili birbirine yakın. Bu örtüşmenin ne kadarının etiketlerden, ne kadarının modelin özellik temsilinden kaynaklandığını anlamak için yanlış sınıflandırılmış metinleri ayrıca incelemek gerekiyor.
+
+---
+
+## Veri seti
+
+Çalışmanın kaynağı, **[Consumer Complaint Database](https://www.consumerfinance.gov/data-research/consumer-complaints/)** verisi. Modelleme deneylerinde dört kategoriye ayrılmış, dengeli **5.000 metinlik** bir eğitim örneklemi kullandım (`complaints_train_5000.csv`). Her sınıfta 1.250 örnek var.
+
+| Etiket (PyTorch) | Kategori |
+|---:|---|
+| `0` | Credit reporting, credit repair services, or other personal consumer reports |
+| `1` | Debt collection |
+| `2` | Credit reporting |
+| `3` | Mortgage |
+
+Girdi olarak `Consumer complaint narrative`, hedef olarak `Product` kullanılıyor. `Complaint ID` modele özellik olarak verilmiyor.
+
+**Veri sızıntısı konusunda dikkat ettiğim nokta:** TF-IDF sözlüğü yalnızca eğitim verisinden öğrenildi. Bununla birlikte, model seçimi için kullanılan holdout ile bağımsız final testin kesin biçimde ayrılması ve cross-validation'ın tüm preprocessing adımlarını kapsaması sonraki metodolojik iyileştirmeler arasında.
+
+Ham şikâyet metinleri kişisel bilgi içerebilir. Veri dosyalarını repoya eklemeden önce paylaşım koşulları ve kişisel veri riskleri kontrol edilmeli.
+
+---
 
 ## Kurulum ve çalıştırma
 
-### Gereksinimler
+Aşağıdaki komutlar **projenin kök klasöründen** çalıştırılacak şekilde yazıldı.
 
-- Python 3 ve projedeki PyTorch / scikit-learn sürümleriyle uyumlu bir ortam (özellikle sürüm uyumluluğunu kontrol edin)
-- Temel paketler: `pandas`, `numpy`, `scikit-learn`, `joblib`
-- Notebook/MLP deneyleri için ayrıca: `torch`, `matplotlib`, `jupyter` (kullanılan notebook'a bağlı ek kütüphaneler gerekebilir)
+### 1. Depoyu indir
 
-Örnek ortam kurulumu:
+```bash
+git clone https://github.com/alpaypasali/Ai_Engineer_Part.git
+cd Ai_Engineer_Part/Hafta-1/Data_ComplainRouter
+```
+
+### 2. Sanal ortam oluştur ve bağımlılıkları yükle
 
 ```bash
 python -m venv .venv
 source .venv/bin/activate  # Linux / macOS
-python -m pip install pandas numpy scikit-learn joblib torch matplotlib jupyter pytest
+pip install -r requirements.txt
 ```
 
-### Terminalden tahmin
+Windows kullanıyorsan sanal ortamı `.venv\Scripts\activate` ile etkinleştirebilirsin. API testleri için `pytest` ve `httpx`; servis için `fastapi` ve `uvicorn` gereklidir. `requirements.txt` dosyanın bu bağımlılıkları içerdiğini doğrula.
 
-Proje ana klasöründen çalıştırın:
+> Paylaşılan test ekran görüntüsü **Python 3.14.4 / pytest 9.1.1** ortamından. Farklı Python ve scikit-learn sürümlerinde özellikle kaydedilmiş modelin uyumluluğu yeniden kontrol edilmeli.
+
+### 3. Kaydedilmiş modeli hazırla
+
+Uygulama şu dosyayı bekliyor:
+
+```text
+models/complaintrouter_lr.joblib
+```
+
+Bu dosya yerel ortamında bulunmalı. GitHub'a eklenmemişse `notebooks/04-final_model.ipynb` içindeki eğitim ve kaydetme adımlarını **kendi verinle** çalıştırarak oluşturman gerekir. Pipeline'ın özel temizleme fonksiyonları için `preprocessing.py` modülünün de erişilebilir olması gerekiyor.
+
+Güvenmediğin kaynaklardan `.joblib` dosyaları yükleme: `joblib.load()` pickle tabanlı olduğu için zararlı kod çalıştırabilir.
+
+### 4. Terminalden tahmin yap
 
 ```bash
-python notebooks/predict.py --text "My mortgage payment is incorrect"
+python predict.py --text "I received a debt collection notice for a debt I already paid."
 ```
 
-Diğer örnekler:
+### 5. API'yi başlat
 
 ```bash
-python notebooks/predict.py --text "My credit report contains incorrect information."
-python notebooks/predict.py --text ""
-python notebooks/predict.py --text "My laptop battery is not working."
+uvicorn api:app --reload
 ```
 
-**GitHub'a yüklemeden önce dosya yolu kontrolü:** Geliştirme sırasında `MODEL_PATH` mutlak (`/home/...`) bir yol olarak ayarlandıysa, başka bilgisayarlarda çalışması için `notebooks/predict.py` içinde proje konumundan türetilen yolu kullanın:
+Tarayıcıdan **[http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)** adresini açarak `/health` ve `/predict` endpoint'lerini deneyebilirsin.
 
-```python
-from pathlib import Path
-
-PROJECT_ROOT = Path(__file__).resolve().parent.parent
-MODEL_PATH = PROJECT_ROOT / "models" / "complaintrouter_lr.joblib"
-```
-
-`models/complaintrouter_lr.joblib` dosyası dağıtıma dahil edilmemişse önce notebook üzerinden modeli üretip bu konuma kaydetmek gerekir. Model dosyasının güvenilir kaynaktan geldiğinden emin olun.
-
-### Notebook deneylerini çalıştırma
+Alternatif olarak terminalden API'ye istek gönder:
 
 ```bash
-jupyter notebook
+curl -X POST "http://127.0.0.1:8000/predict" \
+  -H "Content-Type: application/json" \
+  -d '{"text":"My mortgage payment is incorrect"}'
 ```
 
-Notebook'ları `notebooks/` klasöründen açın. Kodun veri yolu beklentilerine göre `data/` konumunu doğrulayın. TF-IDF/MLP karşılaştırmalarının yeniden üretilebilmesi için `complaints_train_5000.csv` gereklidir.
+### 6. Testleri çalıştır
+
+```bash
+pytest -v
+```
+
+---
 
 ## Proje yapısı
 
-Aşağıdaki yapı, geliştirme sırasında kullanılan temel dizinleri ve dosyaları gösterir:
+Geliştirme sırasında kullandığım ve README'de referans verdiğim temel dosya düzeni:
 
 ```text
 Data_ComplainRouter/
-├── data/
-│   ├── complaints_train_5000.csv
-│   ├── complaints_test.csv
-│   └── rows.csv
-├── models/
-│   └── complaintrouter_lr.joblib
+├── api.py                          # FastAPI: /health ve /predict
+├── predict.py                      # CLI ve tahmin fonksiyonu
+├── preprocessing.py                # Ortak metin temizleme
+├── pytest.ini
+├── requirements.txt
 ├── notebooks/
 │   ├── 01_data_audit.ipynb
 │   ├── 02_baseline_model.ipynb
 │   ├── 03_pytorch_mlp.ipynb
-│   ├── 04-final_model.ipynb
-│   ├── preprocessing.py
-│   └── predict.py
-├── reports/
+│   └── 04-final_model.ipynb
 ├── tests/
+│   ├── test_api.py
+│   └── test_prediction.py
+├── models/
+│   └── complaintrouter_lr.joblib   # Yerelde oluşturulan model artefaktı
+├── figures/
+│   ├── cli_prediction.png
+│   ├── fastapi_predict.png
+│   ├── fastapi_health.png
+│   ├── pytest_11_passed.png
+│   ├── training_loss_comparison.png
+│   └── confusion_matrix_mlp128.png
 └── README.md
 ```
 
-| Dosya / klasör | Amaç |
-|---|---|
-| `notebooks/01_data_audit.ipynb` | Veri inceleme ve kalite kontrolü |
-| `notebooks/02_baseline_model.ipynb` | TF-IDF + Logistic Regression baseline |
-| `notebooks/03_pytorch_mlp.ipynb` | PyTorch MLP deneyleri (128/256) |
-| `notebooks/04-final_model.ipynb` | Son Logistic Regression Pipeline çalışması ve değerlendirme |
-| `notebooks/preprocessing.py` | Ortak metin temizleme fonksiyonları |
-| `notebooks/predict.py` | `argparse` tabanlı terminal sınıflandırıcısı |
-| `models/complaintrouter_lr.joblib` | Eğitilmiş Pipeline artefaktı |
-| `reports/` | Teknik / deney raporları için klasör |
-| `tests/` | Planlanan otomatik testler için klasör |
-
-> Önceki deney notlarında geçen `baseline_report.md`, `pytorch_experiment_report.md`, `deployment_report.md` ve grafik dosyaları repoya eklenecekse mevcut konumlarına göre bağlantılar ayrıca düzenlenmelidir. Bu README, mevcut olmayan rapor/görsel bağlantılarına bağımlı değildir.
-
-## Sınırlamalar ve sonraki adımlar
-
-1. **Veri ayrımı:** Train / validation / test kümelerini birbirinden ayırmak; modeli validation ile seçip testte bir kez değerlendirmek.
-2. **Olasılık kalibrasyonu:** `predict_proba()` sonuçlarını kalibrasyon metrikleri ve uygun yöntemlerle doğrulamak.
-3. **Human Review eşiği:** Deneysel `0.60` sınırını validation verisi ve hata maliyetine göre ayarlamak; gerekirse ilk iki olasılığın farkını kullanmak.
-4. **OOD / bilinmeyen konu:** Eğitim kategorileri dışındaki girdileri işaretleyecek ek kontroller geliştirmek; yüksek olasılıklı yanlış yönlendirmeleri incelemek.
-5. **Otomatik testler:** `pytest` ile geçersiz giriş, çıktı şeması, model yükleme ve tahmin tutarlılığı testlerini tamamlamak; eksik model dosyası için kontrollü hata üretmek.
-6. **Model iyileştirme:** `ngram_range`, `max_features`, düzenlileştirme, karakter n-gramları ve sınıf `0 ↔ 2` hata örneklerini araştırmak.
-7. **Tekrarlanabilirlik:** Bağımlılık sürümlerini sabitlemek, deney seed'lerini standartlaştırmak ve model dosyasının sürümünü belgelemek.
-8. **Dağıtım güvenliği:** Hassas veriyi korumak, güvenilmeyen `joblib` dosyalarını yüklememek, metin uzunluğu/performans sınırlarını ve gözlemlenebilirliği eklemek.
-
-## Bu projede öğrendiklerim
-
-- TF-IDF ile metinleri sayısallaştırmayı ve **fit/transform ayrımını** doğru uygulamayı.
-- Baseline olarak Logistic Regression kullanmayı ve PyTorch MLP ile karşılaştırmayı.
-- `nn.Module`, `DataLoader`, `CrossEntropyLoss`, `Adam`, `backward()` ve `optimizer.step()` kavramlarını.
-- Accuracy, Macro-F1, sınıf raporu ve confusion matrix ile hata analizi yapmayı.
-- `FunctionTransformer` + `TfidfVectorizer` + `LogisticRegression` bileşenlerini tek bir **Pipeline** içinde kullanmayı.
-- `joblib.dump()` / `joblib.load()` ile modeli **yeniden eğitmeden** çalıştırmayı.
-- `argparse` ile terminal uygulaması oluşturmayı, girdileri doğrulamayı ve sınıf olasılıklarını göstermeyi.
-- **Human Review**, olasılık kalibrasyonu ve **OOD** sınırlarının gerçek uygulamalarda neden önemli olduğunu.
+Veri dosyaları yerelde `data/` altında tutulabilir; **repoya yüklenmiş oldukları varsayılmamalıdır**. Model artefaktı ve notebook'ların yeniden çalıştırılması için gereken CSV dosyaları ayrıca sağlanmalıdır.
 
 ---
 
-**Özet:** Bu çalışma, 5.000 şikâyet üzerinde farklı metin sınıflandırıcılarını karşılaştıran ve seçilen Logistic Regression Pipeline'ını komut satırında çalıştıran **uçtan uca bir NLP prototipidir**. En iyi kaydedilmiş baseline sonucu **%72,60 Accuracy / 0,7231 Macro-F1**'dir. Sonraki odak, genelleme ve güvenilir dağıtım için bağımsız değerlendirme, kalibrasyon ve otomatik testlerdir.
+## Sınırlamalar ve sonraki adımlar
+
+Bu proje çalışan bir **yerel prototip**. Gerçek bir finansal kuruluşta kullanılmadan önce çözmem gereken konular var:
+
+1. **Değerlendirme protokolü:** Train / validation / test ayrımını netleştirmek; hiperparametre aramasında preprocessing'i CV Pipeline içine almak ve hiç kullanılmamış test verisinde son ölçümü yapmak.
+2. **Olasılıkların güvenilirliği:** Calibration incelemesi yapmak ve `%60` insan incelemesi eşiğini veriyle belirlemek.
+3. **Belirsiz kategoriler:** Özellikle kredi raporlama sınıflarındaki `0 ↔ 2` hatalarını örnek bazında incelemek.
+4. **Alan dışı girdiler:** Modelin tanımadığı konuları da mevcut dört sınıftan birine atadığını hesaba katarak OOD kontrolleri geliştirmek.
+5. **Servis dayanıklılığı:** API için daha kapsamlı hata yönetimi, giriş uzunluğu sınırları, günlükleme ve güvenlik kontrolleri eklemek.
+6. **Tekrarlanabilirlik:** Bağımlılık/model sürümlerini sabitlemek, eğitim süreçlerini yeniden çalıştırılabilir hâle getirmek ve CI üzerinde testleri otomatikleştirmek.
+
+Bu çalışmada amacım sadece bir modele `fit()` çağırmak değildi. **Veriyi hazırlamaktan yanlış tahmini anlamaya, modeli kaydetmekten onu bir HTTP endpoint'i ile sunmaya kadar bütün akışı deneyimlemekti.** Şimdi en önemli sonraki adım, aynı akışı daha güvenilir değerlendirme ve test standartlarıyla güçlendirmek.
+
+---
+
+**Geliştiren:** [Alpay Paşalı](https://github.com/alpaypasali) · **Çalışma:** AI Engineer öğrenme yolculuğu / 1. hafta
