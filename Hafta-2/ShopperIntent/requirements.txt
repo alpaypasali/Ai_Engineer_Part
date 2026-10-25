@@ -1,0 +1,11 @@
+# ShopperIntent — installation dependencies
+numpy
+pandas
+scikit-learn
+torch
+joblib
+pytest
+matplotlib
+seaborn
+ipykernel
+notebook
