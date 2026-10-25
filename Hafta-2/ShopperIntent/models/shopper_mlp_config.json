@@ -1,0 +1,9 @@
+{
+    "model": "ShopperClassifier",
+    "activation": "ReLU",
+    "optimizer": "Adam",
+    "input_dim": 73,
+    "output_dim": 2,
+    "target": "Revenue",
+    "threshold": 0.6
+}

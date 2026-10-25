@@ -1,0 +1,32 @@
+{
+    "model_name": "ShopperIntent",
+    "model_version": "1.0.0",
+    "model_type": "PyTorch MLP",
+    "activation": "relu",
+    "input_dim": 73,
+    "hidden_layers": [
+        64,
+        32
+    ],
+    "output_dim": 2,
+    "positive_class": 1,
+    "decision_threshold": 0.6,
+    "feature_columns": [
+        "Administrative",
+        "Administrative_Duration",
+        "Informational",
+        "Informational_Duration",
+        "ProductRelated",
+        "ProductRelated_Duration",
+        "BounceRates",
+        "ExitRates",
+        "SpecialDay",
+        "Month",
+        "OperatingSystems",
+        "Browser",
+        "Region",
+        "TrafficType",
+        "VisitorType",
+        "Weekend"
+    ]
+}
