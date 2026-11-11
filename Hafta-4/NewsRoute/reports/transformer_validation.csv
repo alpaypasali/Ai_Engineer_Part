@@ -1,0 +1,2 @@
+model,train_samples,val_samples,accuracy,macro_f1,validation_loss
+NewsRouteTransformer,3200,800,0.71375,0.7108249467676686,0.751835446357727

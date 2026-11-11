@@ -1,0 +1,3 @@
+model,corpus_samples,query_samples,top1_same_star_rate,top5_same_star_fraction
+TFIDF,800,200,0.335,0.291
+MiniLM_Embeddings,800,200,0.305,0.297

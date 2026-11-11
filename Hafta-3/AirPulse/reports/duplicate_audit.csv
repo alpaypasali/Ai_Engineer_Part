@@ -1,0 +1,5 @@
+check_name,count,description
+total_records,35064,Ham veri setindeki toplam satır sayısı
+duplicate_timestamps,0,Aynı timestamp'in ilk kayıt sonrası tekrar sayısı
+duplicate_full_rows,0,Tüm sütunları aynı olan satırların tekrar sayısı
+conflicting_timestamps,0,Aynı timestamp'te birden fazla farklı PM2.5 değeri bulunan saat sayısı

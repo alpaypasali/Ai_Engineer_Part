@@ -1,5 +1,6 @@
 # Dataset dosyalari
-*.csv
+**/data/*.csv
+**/data/**/*.csv
 *.parquet
 
 # Python

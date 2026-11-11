@@ -1,0 +1,3 @@
+model,validation_samples,accuracy,macro_precision,macro_recall,macro_f1
+TFIDF_LogisticRegression,800,0.87125,0.871946637120661,0.87125,0.8710685308050929
+NewsRouteTransformer,800,0.71375,0.7142992150196398,0.71375,0.7108249467676686

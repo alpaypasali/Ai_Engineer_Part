@@ -1,0 +1,2 @@
+model,train_samples,val_samples,accuracy,macro_precision,macro_recall,macro_f1
+TFIDF_LogisticRegression,3200,800,0.8712,0.8719,0.8712,0.8711

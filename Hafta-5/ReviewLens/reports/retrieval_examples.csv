@@ -1,0 +1,6 @@
+query_id,query_stars,tfidf_top1_id,tfidf_top1_stars,embedding_top1_id,embedding_top1_stars
+0,3,246,1,385,4
+1,1,680,2,791,1
+2,2,742,2,744,1
+3,2,716,3,450,4
+6,3,749,4,332,1

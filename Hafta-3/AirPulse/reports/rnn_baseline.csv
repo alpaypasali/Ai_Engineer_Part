@@ -1,0 +1,2 @@
+model,sequence_length,hidden_size,epochs,learning_rate,train_loss,validation_loss,mae,rmse
+AirPulseRNN,24,32,10,0.001,0.06123949313373445,0.07652762604863453,10.66174030303955,21.143753666078236

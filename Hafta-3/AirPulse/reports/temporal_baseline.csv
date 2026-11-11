@@ -1,0 +1,2 @@
+Model,Period,MAE,RMSE
+Naive Forecast,Validation,10.19,20.82

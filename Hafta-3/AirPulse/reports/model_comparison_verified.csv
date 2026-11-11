@@ -1,0 +1,4 @@
+model,validation_samples,mae,rmse
+Naive Forecast,4266,10.374824,21.589004
+RNN,4266,10.66174,21.143753
+LSTM,4266,10.469891,20.777576
