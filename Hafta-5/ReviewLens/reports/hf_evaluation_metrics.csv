@@ -1,0 +1,2 @@
+model,eval_samples,accuracy,macro_precision,macro_recall,macro_f1,one_star_recall,one_star_error_rate
+nlptown_bert_multilingual,200,0.555,0.560473,0.555,0.553163,0.6,0.4
