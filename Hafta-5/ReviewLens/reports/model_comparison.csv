@@ -1,0 +1,3 @@
+model,eval_samples,accuracy,macro_f1,one_star_recall,one_star_error_rate,mean_latency_ms,p95_latency_ms,license
+nlptown/bert-base-multilingual-uncased-sentiment,200,0.555,0.553163,0.6,0.4,16.759135,32.258314,MIT
+tabularisai/multilingual-sentiment-analysis,200,0.42,0.3827,0.5,0.5,7.160625,14.609260,CC BY-NC 4.0
