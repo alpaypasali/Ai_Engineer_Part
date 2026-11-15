@@ -1,88 +1,57 @@
 # ReviewLens — Data Card
 
-**Veri seti:** Yelp Review Full · **Yerel pilot dosya:** `data/yelp_sample_1000.csv` · **Tarih:** 9 Kasım 2026
+## Dataset
 
-## 1. Veri kaynağı ve amaç
+| Property | Description |
+|---|---|
+| Name | Yelp Review Full |
+| Source | [Hugging Face dataset card](https://huggingface.co/datasets/Yelp/yelp_review_full) |
+| Original source | Yelp Dataset Challenge 2015 |
+| Language | Primarily English |
+| Task | Star rating classification; experimental semantic retrieval |
+| Original splits | 650,000 train / 50,000 test |
+| Original fields | `text`, `label` |
+| Local derived field | `stars = label + 1` |
 
-Yelp Review Full, Yelp yorumlarından derlenen beş sınıflı, ağırlıklı olarak İngilizce bir metin sınıflandırma veri setidir. Bu projede amaç, yorum metninden yıldız değerlendirmesi tahmin etmeye yönelik NLP araçlarını eğitim amaçlı denemektir.
+## Local working sample
 
-- Veri kartı: https://huggingface.co/datasets/Yelp/yelp_review_full/blob/main/README.md
-- Dataset: https://huggingface.co/datasets/Yelp/yelp_review_full
-- Orijinal `train`: **650.000 yorum**
-- Orijinal `test`: **50.000 yorum**
-- Örneklem: Yalnızca **train** bölümünden **1.000 yorum**. Test bölümüne dokunulmadı.
+The project used 1,000 reviews selected from the original train split with equal representation of all five classes.
 
-## 2. Veri yapısı ve etiketler
-
-| Alan | Tür | Açıklama |
-|---|---|---|
-| `text` | String | Müşteri yorumunun metni |
-| `label` | Integer | Modelleme etiketi: 0, 1, 2, 3, 4 |
-| `stars` | Integer | Kullanıcı dostu yıldız: 1, 2, 3, 4, 5 |
-
-**Dönüşüm:** `stars = label + 1`
-
-| `label` | `stars` |
-|---:|---:|
-| 0 | 1 |
-| 1 | 2 |
-| 2 | 3 |
-| 3 | 4 |
-| 4 | 5 |
-
-## 3. Örneklem yöntemi
-
-Veri, Hugging Face `datasets` ile **streaming** olarak okundu. Yalnızca eğitim bölümü `shuffle(seed=42, buffer_size=10000)` kullanılarak tampon üzerinden karıştırıldı. Her etiketten ilk 200 uygun kayıt alındı; bütün sayaçlar 200 olunca işlem sonlandırıldı. Tam küresel shuffle yapılmadığı için bu yöntem tam rastgele örnekleme ile aynı değildir.
-
-| Yıldız | Sayı | Örneklem payı |
+| Stars | Local sample | Classification evaluation |
 |---|---:|---:|
-| 1 | 200 | %20 |
-| 2 | 200 | %20 |
-| 3 | 200 | %20 |
-| 4 | 200 | %20 |
-| 5 | 200 | %20 |
-| **Toplam** | **1.000** | **%100** |
+| 1 | 200 | 40 |
+| 2 | 200 | 40 |
+| 3 | 200 | 40 |
+| 4 | 200 | 40 |
+| 5 | 200 | 40 |
+| Total | 1,000 | 200 |
 
-Yerel çalışma dosyası `data/yelp_sample_1000.csv` olarak kaydedildi. Henüz train/validation ayrımı yapılmadı.
+Local fields: `text` (review), `label` (0–4), `stars` (1–5). A local row index identifies each sample.
 
-## 4. Veri kalitesi
+## Sampling and evaluation
 
-| Ölçüm | Sonuç |
-|---|---:|
-| Toplam kayıt | 1.000 |
-| Boş/whitespace-only metin | 0 |
-| Eksik `label` | 0 |
-| Birebir tekrarlanan `text` | 0 |
-| Ortalama kelime sayısı | 131,20 |
-| Minimum kelime sayısı | 2 |
-| Maksimum kelime sayısı | 847 |
+- Retrieval used a corpus of 800 reviews and 200 queries. Corpus and query row indices and exact texts were checked for overlap.
+- Classification used a fixed 200-review stratified evaluation sample (`test_size=0.20`, `random_state=42`). The saved evaluation indices preserved order for both candidates.
+- Model A and Model B used identical evaluation records and labels. No candidate was fine-tuned.
+- Latency was measured on 20 evaluation reviews, four from each rating.
+- The original dataset test split was not used. Some reviews may have appeared in earlier exploratory work. These measurements are development results.
 
-Kelime sayıları boşluk bazlı `str.split()` ile bulundu. Duplicate kontrolü metnin birebir aynı olup olmadığına bakar; farklı yazılmış benzer yorumları dışlamaz. `assert` tabanlı label mapping, sınıf dengesi ve geçerli metin testlerinin üçü de başarıyla geçti.
+## Preprocessing
 
-## 5. Lisans ve kullanım sınırları
+The original review text was used as model input. Both classification candidates used truncation at 256 tokens and batch size 8. Their tokenizers differ, so the retained text may differ. The embedding model produces normalized 384-dimensional representations with a 256-token limit.
 
-Hugging Face'te lisans etiketi `other` olarak görünür; veri kartı Yelp Dataset Terms of Use sözleşmesine yönlendirir:
+## Limitations and bias
 
-https://s3-media3.fl.yelpcdn.com/assets/srv0/engineering_pages/bea5c1e92bf3/assets/vendor/yelp-dataset-agreement.pdf
+The balanced sample is useful for comparing classes but is not necessarily representative of the natural frequency of ratings or current review distributions. Yelp reviews cover different business types and should not be treated as a restaurant-only population unless filtered and validated. Ratings are subjective and are not semantic relevance labels. Long reviews can lose context through truncation. Text may also contain personal information.
 
-Bu bağlantıdaki sözleşme akademik/ticari olmayan kullanımı ve çeşitli paylaşım kısıtlarını tanımlar. Özellikle ham Yelp yorumlarının üçüncü taraflarla paylaşımı ve kamuya açık sonuçların yayımlanması konusunda sözleşmedeki şartlar kontrol edilmelidir. **Lisansın izin verdiği açıkça doğrulanmadan `data/yelp_sample_1000.csv` veya yorum içeren notebook çıktıları herkese açık GitHub deposuna yüklenmemelidir.** Bu kart lisans izni sağlamaz; bağlayıcı metin ilgili sözleşmedir.
+## Data rights and publication
 
-## 6. Olası sınırlamalar ve riskler
+The dataset card identifies the license as `other` and points to the [Yelp Dataset Terms of Use](https://s3-media3.fl.yelpcdn.com/assets/srv0/engineering_pages/bea5c1e92bf3/assets/vendor/yelp-dataset-agreement.pdf).
 
-- **Küçük pilot:** 1.000 kayıt büyük veri setinin küçük bir bölümüdür; güvenilir üretim performansı göstermez.
-- **Yapay sınıf dengesi:** Her yıldız %20 seçildi; gerçek kullanıcı yorumlarının dağılımını temsil etmeyebilir.
-- **Streaming shuffle:** `buffer_size=10000` bütün eğitim verisini tam rastgele karıştırmaz.
-- **Tarih ve alan değişimi:** Kaynak, eski bir Yelp veri kümesinden türetilmiştir; güncel yorumlara ve farklı alanlara genelleme belirsizdir.
-- **Öznel etiketler:** Benzer içerikli yorumlar farklı yıldız puanları alabilir; özellikle orta yıldızlarda anlam örtüşmesi vardır.
-- **Yorum uzunluğu:** 2–847 kelime aralığı, modellerin token sınırlarında kesilmeye neden olabilir.
-- **Tekrar kontrolü kapsamı:** Yalnızca birebir metin tekrarları incelendi; tüm orijinal veri ile kesişim veya anlamsal tekrar analizi yapılmadı.
-- **Veri gizliliği ve telif:** Yorum metinleri kullanıcı içeriğidir; paylaşımda kaynak lisansı ve ilgili kısıtlar dikkate alınmalıdır.
+The agreement describes academic/non-commercial use and restrictions on redistributing data and derived metrics. Sections 3 and 4 require review of publication conditions; obtain Yelp's required approval before publishing findings involving the dataset or brand. Model licenses are separate.
 
-## 7. Bu aşamada yapılmayanlar
+Keep sample CSVs, retrieval corpora, row-level prediction exports, evaluation indices and review-containing notebook outputs private. Do not distribute embeddings or other derivatives without confirmed authorization. This report and aggregate results are a private educational draft pending any required publication approval. Synthetic test examples contain no dataset records.
 
-Orijinal test bölümünün açılması, train/validation ayrımı, model eğitimi, fine-tuning, hyperparameter tuning ve üretim performansı değerlendirmesi yapılmadı.
+## Citation
 
-## Kaynaklar
-
-- Dataset card: https://huggingface.co/datasets/Yelp/yelp_review_full/blob/main/README.md
-- Yelp Dataset Terms of Use: https://s3-media3.fl.yelpcdn.com/assets/srv0/engineering_pages/bea5c1e92bf3/assets/vendor/yelp-dataset-agreement.pdf
+Zhang, X., Zhao, J., & LeCun, Y. (2015). [Character-level Convolutional Networks for Text Classification](https://arxiv.org/abs/1509.01626). Advances in Neural Information Processing Systems.
