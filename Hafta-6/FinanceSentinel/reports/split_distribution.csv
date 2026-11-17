@@ -1,0 +1,4 @@
+Split,Total,Negative %,Neutral %,Positive %
+Train,1807,13.39,61.37,25.24
+Validation,226,13.27,61.5,25.22
+Test,226,13.72,61.06,25.22
