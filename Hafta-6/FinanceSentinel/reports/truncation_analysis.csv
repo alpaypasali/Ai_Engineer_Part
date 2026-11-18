@@ -1,0 +1,5 @@
+split,max_length,truncated_samples,truncation_rate,lost_tokens,avg_lost_tokens,negative_truncation_rate,neutral_truncation_rate,positive_truncation_rate
+train,128,1,0.05534034311012728,22,0.012174875484228001,0.0,0.09017132551848511,0.0
+train,256,0,0.0,0,0.0,0.0,0.0,0.0
+validation,128,0,0.0,0,0.0,0.0,0.0,0.0
+validation,256,0,0.0,0,0.0,0.0,0.0,0.0
