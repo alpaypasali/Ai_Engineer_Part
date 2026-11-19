@@ -1,0 +1,8 @@
+row_id,actual,predicted,confidence,token_length,p_negative,p_neutral,p_positive,error_reason
+149,Negative,Positive,0.9732746,62,0.01952409,0.0072013494,0.9732746,Misinterpretation of increasing net loss
+31,Positive,Negative,0.96701694,14,0.96701694,0.016451873,0.016531164,Misinterpretation of cost reduction
+180,Positive,Negative,0.9546147,33,0.9546147,0.011345317,0.03403995,Misinterpretation of cost savings
+10,Neutral,Positive,0.9355313,19,0.02543359,0.039035045,0.9355313,Confusion between price advantage and positive sentiment
+172,Neutral,Positive,0.78896034,25,0.019124495,0.19191523,0.78896034,Company activity interpreted as positive sentiment
+190,Neutral,Positive,0.7869999,34,0.016115682,0.19688448,0.7869999,Growth objective interpreted as achieved growth
+146,Neutral,Positive,0.49496877,36,0.015228179,0.48980308,0.49496877,Financial figures without directional comparison
