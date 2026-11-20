@@ -1,0 +1,11 @@
+category,sentence,expected,predicted,confidence,p_negative,p_neutral,p_positive,is_correct,expected_label,predicted_label
+Cost Reduction,Operating costs decreased by 20%.,2,0,0.96930707,0.96930707,0.012480451,0.01821246,False,Positive,Negative
+Cost Increase,Operating costs increased by 20%.,0,2,0.9742177,0.01741133,0.0083709825,0.9742177,False,Negative,Positive
+Profit Reduction,Operating profit decreased by 20%.,0,0,0.9708185,0.9708185,0.012435445,0.016745947,True,Negative,Negative
+Profit Increase,Operating profit increased by 20%.,2,2,0.9760435,0.015927874,0.008028626,0.9760435,True,Positive,Positive
+Negation,Operating profit did not increase and remained unchanged.,1,2,0.80748844,0.17894453,0.013567103,0.80748844,False,Neutral,Positive
+Loss Reduction,The company's net loss decreased by 30%.,2,0,0.9703564,0.9703564,0.012234302,0.017409291,False,Positive,Negative
+Debt Increase,The company's debt increased by 20% while cash reserves remained unchanged.,0,2,0.97382945,0.015863685,0.010306854,0.97382945,False,Negative,Positive
+Future Growth Target,The company aims to increase revenue by 10% next year.,1,2,0.9777785,0.01240142,0.009820089,0.9777785,False,Neutral,Positive
+Actual Growth,The company increased revenue by 10% this year.,2,2,0.9780889,0.012541675,0.009369393,0.9780889,True,Positive,Positive
+Mixed Sentiment,"Revenue increased by 10%, but operating profit decreased by 10%.",1,0,0.951991,0.951991,0.009650397,0.0383585,False,Neutral,Negative

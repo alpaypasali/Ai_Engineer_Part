@@ -1,0 +1,13 @@
+test,status
+Test 1 — Model Reload,PASSED
+Test 2 — Tokenizer Consistency,PASSED
+Test 3 — Prediction Consistency,PASSED
+Test 4 — Logits Consistency,PASSED
+Test 5 — Test Integrity,PASSED
+Test 6 — Data Leakage,PASSED
+Test 7 — Probability Validity,PASSED
+Test 8 — Metric Validity,PASSED
+Test 9 — Latency Validity,PASSED
+Test 10 — Batch Consistency,PASSED
+Test 11 — Error Consistency,PASSED
+Test 12 — Calibration Validity,PASSED
