@@ -1,0 +1,6 @@
+text,label,confidence,probability_negative,probability_neutral,probability_positive,truncated,requires_review,review_reasons
+The company increased its operating profit by 15%.,Positive,0.9773696064949036,0.013607468456029892,0.009022856131196022,0.9773696064949036,False,False,
+Net losses widened from EUR 2 million to EUR 5 million.,Positive,0.9284875988960266,0.06383367627859116,0.007678750902414322,0.9284875988960266,False,False,
+The company will issue its quarterly report next Tuesday.,Neutral,0.9941059350967407,0.00228294194675982,0.9941059350967407,0.003611143445596099,False,False,
+Operating costs decreased by 20% during the quarter.,Negative,0.9696941375732422,0.9696941375732422,0.012261402793228626,0.018044430762529373,False,False,
+"Revenue rose by 10%, but operating profit declined by 5%.",Negative,0.9625846147537231,0.9625846147537231,0.010512263514101505,0.026903120800852776,False,False,

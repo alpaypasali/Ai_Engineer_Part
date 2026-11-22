@@ -1,0 +1,16 @@
+torch
+transformers==5.14.1
+safetensors
+tokenizers
+accelerate
+datasets
+numpy
+pandas
+scikit-learn
+scipy
+statsmodels
+matplotlib
+seaborn
+pytest
+jupyter
+ipykernel

@@ -33,7 +33,17 @@ The classifier produces three logits for each sentence. Softmax converts these l
 | 1 | Neutral |
 | 2 | Positive |
 
-The original checkpoint and final model export were compared on 20 fixed validation examples using logits, probabilities and predicted labels.
+The original checkpoint and final model export were compared on 20 fixed validation examples. Logits and probabilities matched within numerical tolerance (`atol=1e-6`, `rtol=1e-5`), and predicted labels matched exactly. The recorded save/reload test passed.
+
+| Exported file | Size (MB) |
+|---|---:|
+| `config.json` | 0.0008 |
+| `tokenizer.json` | 0.7115 |
+| `tokenizer_config.json` | 0.0005 |
+| `model.safetensors` | 267.835644 |
+| Total folder | 268.548396 |
+
+The final checkpoint uses FP32 weights. These sizes were recorded in the final evaluation notebook; they are not estimates.
 
 ## 2. Intended Use
 
@@ -151,9 +161,11 @@ I measured calibration using five equal-width probability bins. The overall ECE 
 | Neutral | 0.024971 |
 | Positive | 0.017487 |
 
+The independent test overall ECE was **0.020372** (five bins), compared with 0.005165 on validation, an increase of 0.015207. Recalculation from the 226 saved test predictions agrees to six decimal places. The class-wise values above refer to validation only.
+
 The average confidence of correct validation predictions was 0.968019, compared with 0.843052 for incorrect predictions. Four validation mistakes and six test mistakes were made with confidence of at least 90%.
 
-The low validation ECE should not be mistaken for a guarantee that the model is reliable on individual predictions. It depends on the sample size and binning approach. No temperature scaling was fitted. The independent test ECE is recorded by the final evaluation notebook in `final_test_metrics.csv`; it should be consulted separately rather than inferred from the validation ECE.
+The low validation ECE should not be mistaken for a guarantee that the model is reliable on individual predictions. It depends on the sample size and binning approach. No temperature scaling was fitted. The higher test ECE suggests a larger calibration gap on the held-out split, though the sample is too small to establish a general calibration difference.
 
 ![Overall reliability diagram](../figures/reliability_diagram.png)
 
@@ -187,7 +199,7 @@ Under comparable conditions, processing one million sentences at batch 32 is est
 | Possible truncation-related errors | 0 | 0 |
 | Total errors | 7 | 11 |
 
-Categories can overlap and should not be summed. The test set also includes a case where risk reduction was incorrectly interpreted as Negative. Loss increases were sometimes classified as Positive. These errors suggest that the model may associate directional terms with sentiment without consistently accounting for what is increasing or decreasing.
+Categories can overlap and should not be summed. The cost-reduction count is zero in the test set after manual review of the 11 errors; the notebook's earlier `NaN` was a placeholder, not an observed error count. The test set does include a distinct case where risk reduction was incorrectly interpreted as Negative. Loss increases were sometimes classified as Positive. These errors suggest that the model may associate directional terms with sentiment without consistently accounting for what is increasing or decreasing.
 
 I tested this hypothesis using ten manually labeled synthetic financial sentences. The expected labels were defined before predictions were generated.
 
@@ -243,6 +255,14 @@ FinanceSentinel is a useful research prototype for short English financial senti
 
 I would use the model for educational experiments and human-reviewed exploratory analysis. I would not deploy it as an autonomous system for high-stakes financial decisions. Broader labeled data, independent domain evaluation, systematic counterfactual testing, and appropriate rights clearance are required before considering higher-risk use.
 
+## 16. Verification Status
+
+All 12 automated tests passed in the final evaluation notebook on 2026-11-20, as confirmed by `final_test_results.csv`. These include model reload, tokenizer and prediction consistency, logits, split integrity, exact data leakage, probability and metric validity, latency validity, batch consistency, error consistency and ECE validity. On 2026-11-22, standalone fresh-process model and benchmark checks passed, with peak throughput of 868.91 samples/s (batch 32). The separate application pytest suite also passed all 12 tests in 2.89 seconds.
+
+The application flags predictions below 0.80 confidence and all truncated inputs for manual review. In the validation threshold analysis, 0.80 achieved 94.25% coverage and 98.12% accepted accuracy (13 rejections out of 226). This policy is not a safety guarantee: all seven counterfactual errors exceeded the selected threshold.
+
+![Fresh-process verification](../figures/final_model_verification.png)
+
 ## References and Evaluation Artifacts
 
 - [DistilBERT base model](https://huggingface.co/distilbert/distilbert-base-uncased)
@@ -252,3 +272,6 @@ I would use the model for educational experiments and human-reviewed exploratory
 - [Bootstrap results](bootstrap_results.csv)
 - [Inference benchmark](inference_benchmark.csv)
 - [Robustness analysis](robustness_analysis.csv)
+- [Automated test results](final_test_results.csv)
+- [Final error comparison](final_error_comparison.csv)
+- [Threshold analysis](threshold_analysis.csv)
