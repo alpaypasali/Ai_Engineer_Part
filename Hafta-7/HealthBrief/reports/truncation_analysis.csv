@@ -1,0 +1,7 @@
+split,max_input_length,truncated_articles,truncation_rate
+train,256,500,100.0
+train,512,500,100.0
+train,1024,500,100.0
+validation,256,100,100.0
+validation,512,100,100.0
+validation,1024,100,100.0

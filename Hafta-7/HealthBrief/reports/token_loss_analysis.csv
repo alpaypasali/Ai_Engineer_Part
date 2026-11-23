@@ -1,0 +1,7 @@
+split,max_input_length,mean_original_tokens,mean_retained_tokens,mean_lost_tokens,token_loss_rate
+train,256,17033.36,256.0,16777.36,98.5
+train,512,17033.36,512.0,16521.36,96.99
+train,1024,17033.36,1024.0,16009.36,93.99
+validation,256,16729.98,256.0,16473.98,98.47
+validation,512,16729.98,512.0,16217.98,96.94
+validation,1024,16729.98,1024.0,15705.98,93.88

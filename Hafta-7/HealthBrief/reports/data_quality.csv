@@ -1,0 +1,3 @@
+split,total_samples,article_missing,article_empty,summary_missing,summary_empty,title_missing,title_empty,year_missing,year_empty,keywords_missing,keywords_empty,section_headings_missing,section_headings_empty,duplicate_articles,duplicate_titles,article_overlap,title_overlap,compression_ratio_mean,compression_ratio_median,compression_ratio_p95
+train,500,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,27.02,25.43,43.44
+validation,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,26.23,24.28,46.35

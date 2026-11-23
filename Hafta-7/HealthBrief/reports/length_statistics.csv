@@ -1,0 +1,5 @@
+split,column,count,min_word_count,mean_word_count,max_word_count,p50_token_count,p95_token_count,p99_token_count
+train,article,500,2474,10008.12,28696,16272.0,27737.45,33191.25
+train,summary,500,204,381.72,580,519.0,688.15,760.05
+validation,article,100,3408,9847.24,23048,15754.0,27568.25,30393.81
+validation,summary,100,234,387.93,540,508.5,691.1,744.15

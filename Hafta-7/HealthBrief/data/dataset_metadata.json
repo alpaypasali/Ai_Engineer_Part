@@ -1,0 +1,14 @@
+{
+    "dataset": "BioLaySumm/BioLaySumm2025-eLife",
+    "revision": "144e9c785e3a309da804eb6786feb38e6596f390",
+    "seed": 42,
+    "sampling_method": "streaming_buffer_shuffle",
+    "buffer_size": 1000,
+    "sample_sizes": {
+        "train": 500,
+        "validation": 100,
+        "test": 100
+    },
+    "license": null,
+    "test_references_available": false
+}
