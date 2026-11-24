@@ -1,0 +1,7 @@
+split,max_target_length,total_samples,truncated_samples,truncation_rate,mean_token_loss_rate
+train,256,500,500,100.0,49.18086700767165
+train,512,500,260,52.0,6.740733735795449
+train,768,500,4,0.8,0.030313206414188186
+validation,256,100,100,100.0,48.80939394837221
+validation,512,100,48,48.0,7.362712028651957
+validation,768,100,0,0.0,0.0

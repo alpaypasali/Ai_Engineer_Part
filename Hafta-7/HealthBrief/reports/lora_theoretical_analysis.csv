@@ -1,0 +1,3 @@
+rank,target_module_count,lora_parameters,total_parameters_after_lora,trainable_ratio
+8,48,344064,77305216,0.445072166928555
+16,48,688128,77649280,0.8862001038515748

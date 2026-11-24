@@ -1,0 +1,5 @@
+metric,full_fine_tuning,lora
+total_parameters,76961152.0,77305216.0
+trainable_parameters,76961152.0,344064.0
+frozen_parameters,0.0,76961152.0
+trainable_ratio,100.0,0.445072166928555

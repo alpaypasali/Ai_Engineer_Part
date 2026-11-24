@@ -1,0 +1,42 @@
+{
+  "citation": "",
+  "description": "",
+  "features": {
+    "article": {
+      "dtype": "large_string",
+      "_type": "Value"
+    },
+    "summary": {
+      "dtype": "large_string",
+      "_type": "Value"
+    },
+    "section_headings": {
+      "feature": {
+        "dtype": "string",
+        "_type": "Value"
+      },
+      "_type": "List"
+    },
+    "keywords": {
+      "feature": {
+        "dtype": "string",
+        "_type": "Value"
+      },
+      "_type": "List"
+    },
+    "year": {
+      "dtype": "large_string",
+      "_type": "Value"
+    },
+    "title": {
+      "dtype": "large_string",
+      "_type": "Value"
+    },
+    "article_id": {
+      "dtype": "large_string",
+      "_type": "Value"
+    }
+  },
+  "homepage": "",
+  "license": ""
+}

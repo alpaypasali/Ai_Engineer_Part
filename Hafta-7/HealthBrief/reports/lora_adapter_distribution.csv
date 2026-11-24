@@ -1,0 +1,4 @@
+component,attention_type,adapter_count,tensor_count,trainable_parameters
+decoder,EncDecAttention,16,32,114688
+decoder,SelfAttention,16,32,114688
+encoder,SelfAttention,16,32,114688

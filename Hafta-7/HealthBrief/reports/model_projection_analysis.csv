@@ -1,0 +1,19 @@
+module_name,input_features,output_features,weight_shape,weight_parameters
+encoder.block.0.layer.0.SelfAttention.q,512,384,"(384, 512)",196608
+encoder.block.0.layer.0.SelfAttention.k,512,384,"(384, 512)",196608
+encoder.block.0.layer.0.SelfAttention.v,512,384,"(384, 512)",196608
+encoder.block.0.layer.0.SelfAttention.o,384,512,"(512, 384)",196608
+encoder.block.0.layer.1.DenseReluDense.wi_0,512,1024,"(1024, 512)",524288
+encoder.block.0.layer.1.DenseReluDense.wi_1,512,1024,"(1024, 512)",524288
+encoder.block.0.layer.1.DenseReluDense.wo,1024,512,"(512, 1024)",524288
+decoder.block.0.layer.0.SelfAttention.q,512,384,"(384, 512)",196608
+decoder.block.0.layer.0.SelfAttention.k,512,384,"(384, 512)",196608
+decoder.block.0.layer.0.SelfAttention.v,512,384,"(384, 512)",196608
+decoder.block.0.layer.0.SelfAttention.o,384,512,"(512, 384)",196608
+decoder.block.0.layer.1.EncDecAttention.q,512,384,"(384, 512)",196608
+decoder.block.0.layer.1.EncDecAttention.k,512,384,"(384, 512)",196608
+decoder.block.0.layer.1.EncDecAttention.v,512,384,"(384, 512)",196608
+decoder.block.0.layer.1.EncDecAttention.o,384,512,"(512, 384)",196608
+decoder.block.0.layer.2.DenseReluDense.wi_0,512,1024,"(1024, 512)",524288
+decoder.block.0.layer.2.DenseReluDense.wi_1,512,1024,"(1024, 512)",524288
+decoder.block.0.layer.2.DenseReluDense.wo,1024,512,"(512, 1024)",524288

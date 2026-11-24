@@ -1,0 +1,16 @@
+feature,value
+model_architecture,T5ForConditionalGeneration
+encoder_layers,8
+decoder_layers,8
+hidden_size,512
+attention_heads,6
+vocabulary_size,32128
+feed_forward_size,1024
+key_value_size,64
+feed_forward_type,gated-gelu
+total_parameters,76961152
+trainable_parameters,76961152
+frozen_parameters,0
+trainable_ratio,100.0
+model_dtype,torch.float32
+weight_memory_mib,293.58349609375

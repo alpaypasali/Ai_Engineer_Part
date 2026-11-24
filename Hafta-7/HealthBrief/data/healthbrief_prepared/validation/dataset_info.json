@@ -1,0 +1,39 @@
+{
+  "citation": "",
+  "description": "",
+  "features": {
+    "split": {
+      "dtype": "large_string",
+      "_type": "Value"
+    },
+    "article_id": {
+      "dtype": "large_string",
+      "_type": "Value"
+    },
+    "input_text": {
+      "dtype": "large_string",
+      "_type": "Value"
+    },
+    "target_summary": {
+      "dtype": "large_string",
+      "_type": "Value"
+    },
+    "source_token_count": {
+      "dtype": "int64",
+      "_type": "Value"
+    },
+    "target_token_count": {
+      "dtype": "int64",
+      "_type": "Value"
+    },
+    "source_sections": {
+      "feature": {
+        "dtype": "string",
+        "_type": "Value"
+      },
+      "_type": "List"
+    }
+  },
+  "homepage": "",
+  "license": ""
+}

@@ -1,0 +1,11 @@
+article_id,original_tokens,selected_sections,verified_headings,retained_tokens,prompt_tokens,input_tokens,truncated,fallback,retention_rate
+42,11344,"Opening (fallback), Result-cue paragraph (fallback)",,492,20,512,True,True,4.34
+43,21903,"Opening (fallback), Result-cue paragraph (fallback)",,492,20,512,True,True,2.25
+47,9523,"Opening (fallback), Result-cue paragraph (fallback)",,492,20,512,True,True,5.17
+100,18238,"Opening (fallback), Result-cue paragraph (fallback)",,492,20,512,True,True,2.7
+214,12195,"Opening (fallback), Result-cue paragraph (fallback)",,492,20,512,True,True,4.03
+216,17163,"Opening (fallback), Result-cue paragraph (fallback)",,492,20,512,True,True,2.87
+322,11842,"Opening (fallback), Result-cue paragraph (fallback)",,492,20,512,True,True,4.15
+347,16227,"Opening (fallback), Result-cue paragraph (fallback)",,492,20,512,True,True,3.03
+380,22365,"Opening (fallback), Result-cue paragraph (fallback)",,492,20,512,True,True,2.2
+425,17185,"Opening (fallback), Result-cue paragraph (fallback)",,492,20,512,True,True,2.86
