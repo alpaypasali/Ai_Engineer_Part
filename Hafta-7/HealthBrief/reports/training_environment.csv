@@ -1,0 +1,15 @@
+feature,value
+python_version,3.14.4
+pytorch_version,2.14.1+cu130
+transformers_version,5.14.1
+peft_version,0.22.0
+datasets_version,5.1.0
+cuda_version,13.0
+cuda_available,True
+gpu_name,NVIDIA GeForce RTX 4060 Laptop GPU
+seed,42
+dataset_name,BioLaySumm/BioLaySumm2025-eLife
+dataset_revision,144e9c785e3a309da804eb6786feb38e6596f390
+model_name,google/flan-t5-small
+model_revision,0fc9ddf78a1e988dac52e2dac162b0ede4fd74ab
+tokenizer_revision,0fc9ddf78a1e988dac52e2dac162b0ede4fd74ab
