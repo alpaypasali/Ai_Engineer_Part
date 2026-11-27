@@ -1,0 +1,308 @@
+SAMPLE ID: 18
+ARTICLE ID: d07baa11f86a0b36b6422847bd20bc8b5c20b02150fa75a2a99abf94c5d67bd2
+TITLE: Huntingtin’s spherical solenoid structure enables polyglutamine tract-dependent modulation of its structure and function
+
+INPUT TOKEN COUNT: 512
+
+MODEL INPUT:
+Summarize the following biomedical research article in plain language for a general audience: The polyglutamine expansion in huntingtin protein causes Huntington’s disease . Here , we investigated structural and biochemical properties of huntingtin and the effect of the polyglutamine expansion using various biophysical experiments including circular dichroism , single-particle electron microscopy and cross-linking mass spectrometry . Huntingtin is likely composed of five distinct domains and adopts a spherical -helical solenoid where the amino-terminal and carboxyl-terminal regions fold to contain a circumscribed central cavity . Interestingly , we showed that the polyglutamine expansion increases -helical properties of huntingtin and affects the intramolecular interactions among the domains . Our work delineates the structural characteristics of full-length huntingtin , which are affected by the polyglutamine expansion , and provides an elegant solution to the apparent conundrum of how the extreme amino-terminal polyglutamine tract confers a novel property on huntingtin , causing the disease . It has been reported previously that purified huntingtin exhibits a predominantly -helical secondary structure but among studies the impact of polyglutamine size has been inconsistent ( Fodale et al . , 2014; Huang et al . , 2015; Li et al . , 2006 ) . To carry out a standardized evaluation , we performed circular dichroism ( CD ) analysis of a series of recombinant human huntingtins with different polyglutamine tract lengths ( Q2- , Q23- , Q46- , Q67- , Q78-huntingtin , respectively ) purified to homogeneity ( Figure 1—figure supplement 1 ) . The CD spectra ( Figure 1B ) of all of the huntingtins are consistent with a predominant -helical secondary structure ( Liu and Rost , 2003; Rost et al . , 1994 ) ( Figure 1A ) , with typical minima at 222 and 208 nm and a positive peak
+
+MODEL: lora
+CONFIG: C
+GENERATED TOKENS: 220
+EOS GENERATED: True
+MAX LENGTH REACHED: False
+REPEATED TRIGRAM RATIO: 0.009174311926605505
+
+GENERATED SUMMARY:
+The polyglutamine expansion of huntingtin causes Huntington’s disease . We found that the polyglutate expansion increases the -helical properties of hunting tin . The polyGlutamine expands the spherical  helical solenoid where the amino-terminal and carboxyl-terminals fold to contain a circumscribed central cavity . This enables the polyGlutate to be able to be used to treat Huntington 's disease by reducing the size of the titrate . In addition , the poly-glutamide expansion increases huntingtine’s –helical secondary structure . Compared with the recombinant human huntingtines , huntingtitin is a novel  complex  structure , causing Huntington to suffer from a  strain of . The  binding site of the polyglitamine is ,  and  the helial structure of hunting to be the '' ' .
+
+MODEL: zero_shot
+CONFIG: C
+GENERATED TOKENS: 31
+EOS GENERATED: True
+MAX LENGTH REACHED: False
+REPEATED TRIGRAM RATIO: 0.0
+
+GENERATED SUMMARY:
+The polyglutamine expansion increases huntingtin’s -helical properties and affects the intramolecular interactions among the domains.
+
+
+====================================================================================================
+SAMPLE ID: 31
+ARTICLE ID: f12fc5a5588f63cffddd368425034c40736f8dcf5b31258f7e714228c7f22385
+TITLE: The newly-arisen Devil facial tumour disease 2 (DFT2) reveals a mechanism for the emergence of a contagious cancer
+
+INPUT TOKEN COUNT: 511
+
+MODEL INPUT:
+Summarize the following biomedical research article in plain language for a general audience: Devil Facial Tumour 2 ( DFT2 ) is a recently discovered contagious cancer circulating in the Tasmanian devil ( Sarcophilus harrisii ) , a species which already harbours a more widespread contagious cancer , Devil Facial Tumour 1 ( DFT1 ) . Here we show that in contrast to DFT1 , DFT2 cells express major histocompatibility complex ( MHC ) class I molecules , demonstrating that loss of MHC is not necessary for the emergence of a contagious cancer . However , the most highly expressed MHC class I alleles in DFT2 cells are common among host devils or non-polymorphic , reducing immunogenicity in a population sharing these alleles . In parallel , MHC class I loss is emerging in vivo , thus DFT2 may be mimicking the evolutionary trajectory of DFT1 . Based on these results we propose that contagious cancers may exploit partial histocompatibility between the tumour and host , Contagious cancers have emerged and circulate in two species of mammals ( dogs and Tasmanian devils ) and four species of molluscs ( Metzger et al . , 2015 , 2016; Novinski , 1876; Pearse and Swift , 2006 ) . The Tasmanian devil is the only mammalian species in which two independent contagious cancers exist , Devil Facial Tumour 1 ( DFT1 ) and Devil Facial Tumour 2 ( DFT2 ) ( Pye et al . , 2016b ) . Although both cancers have similar gross morphology , causing tumours on the face , neck and oral cavity , genetic analysis shows that they emerged in different individuals ( Pearse and Swift , 2006; Pye et al . , 2016b; Stammnitz et al . , 2018 ) . DFT1 was first identified in 1996 in the northeast of Tasmania ( Hawkins et al . , 2006 )
+
+MODEL: lora
+CONFIG: C
+GENERATED TOKENS: 226
+EOS GENERATED: True
+MAX LENGTH REACHED: False
+REPEATED TRIGRAM RATIO: 0.0
+
+GENERATED SUMMARY:
+The Tasmanian devil is a rare contagious cancer . It is circulating in the Tasmanian , Tasmanian and Tasmanian populations . The Tasmania , which has a population of , is the only mammalian species in the genus DFT1. The Tasmanias devil has borne the name of the Tasmania . In the past , the devil was a common occurrence in Tasmania 's molluscs . Despite the emergence of the delvil , it is unable to distinguish between the two cancers , and the Tasmanias ' devil ' s morphology . This is mainly due to the occurrence of the morphological changes in the delves . However , a lack of MHC class I alleles in the DFT2 cells is causing the tumour to develop . DFT1 is characterized by a morphologic change in the tumour , but it is not a condition that can be replicated .
+
+MODEL: zero_shot
+CONFIG: C
+GENERATED TOKENS: 25
+EOS GENERATED: True
+MAX LENGTH REACHED: False
+REPEATED TRIGRAM RATIO: 0.0
+
+GENERATED SUMMARY:
+The Tasmanian devil is the only mammalian species in which two independent contagious cancers exist .
+
+
+====================================================================================================
+SAMPLE ID: 42
+ARTICLE ID: 2d35fc30152d01481c726b2d3f9c26523bb0b8d90112fbd38450423b504a737a
+TITLE: Long-term consequences of the absence of leptin signaling in early life
+
+INPUT TOKEN COUNT: 512
+
+MODEL INPUT:
+Summarize the following biomedical research article in plain language for a general audience: Leptin regulates energy balance and also exhibits neurotrophic effects during critical developmental periods . However , the actual role of leptin during development is not yet fully understood . To uncover the importance of leptin in early life , the present study restored leptin signaling either at the fourth or tenth week of age in mice formerly null for the leptin receptor ( LepR ) gene . We found that some defects previously considered irreversible due to neonatal deficiency of leptin signaling , including the poor development of arcuate nucleus neural projections , were recovered by LepR reactivation in adulthood . However , LepR deficiency in early life led to irreversible obesity via suppression of energy expenditure . LepR reactivation in adulthood also led to persistent reduction in hypothalamic Pomc , Cartpt and Prlh mRNA expression and to defects in the reproductive system and brain growth . Our findings revealed that early defects in leptin signaling cause permanent To study the importance of leptin signaling during development , we used the LepRNull mouse model that carries a transcription blocker between exons 16 and 17 of the Lepr gene ( Berglund et al . , 2012 ) , preventing the expression of the long LepR isoform ( Lepr-b ) . As expected , adult male and female LepRNull mice were morbidly obese and hyperphagic ( Figure 1A–D ) . Since the transcription blocker of LepRNull mice is flanked by LoxP sites , a temporal Cre expression can permanently remove this cassette . LepRNull mice were bred with animals expressing Cre-ERT2 fusion protein under the human ubiquitin C promoter sequence . Thus , tamoxifen injections were able to induce Cre recombinase activity ubiquitously , restoring LepR expression in Ubi-LepRNull mice . We decided to induce LepR re
+
+MODEL: lora
+CONFIG: C
+GENERATED TOKENS: 255
+EOS GENERATED: False
+MAX LENGTH REACHED: True
+REPEATED TRIGRAM RATIO: 0.0
+
+GENERATED SUMMARY:
+LepR reactivation in adulthood led to a reduction in hypothalamic Pomc , Cartpt and Prlh mRNA expression . LepRNull mice were bred with animals expressing Cre-ERT2 fusion protein under the human ubiquitin C promoter sequence . We found that Lepr reactivity in adult mice led to an increase in hypotrophic Pomco , and a decrease in hypothyroidism . The reactive in adult rats was a result of a lack of ubiquin C fusion . In adult rats , lepRNULl mice exhibited a low level of redox activity . However , the retransmission of LepRD reabsorbed the microbial molecule , LepRT , was unable to produce a recombination . Despite the aforementioned reversion , tamoxifen injections were able to induce LepTR re-activation , which was able , in adult , to restore LepRL expression , but the 
+
+MODEL: zero_shot
+CONFIG: C
+GENERATED TOKENS: 21
+EOS GENERATED: True
+MAX LENGTH REACHED: False
+REPEATED TRIGRAM RATIO: 0.0
+
+GENERATED SUMMARY:
+LepR reactivation in adulthood led to irreversible obesity via suppression of energy expenditure
+
+
+====================================================================================================
+SAMPLE ID: 50
+ARTICLE ID: a1429cc8dedc90d48fa9a2294e9586a168d7cd01f0640d90e3d93605659226e3
+TITLE: Identification of Pol IV and RDR2-dependent precursors of 24 nt siRNAs guiding de novo DNA methylation in Arabidopsis
+
+INPUT TOKEN COUNT: 512
+
+MODEL INPUT:
+Summarize the following biomedical research article in plain language for a general audience: In Arabidopsis thaliana , abundant 24 nucleotide small interfering RNAs ( 24 nt siRNA ) guide the cytosine methylation and silencing of transposons and a subset of genes . 24 nt siRNA biogenesis requires nuclear RNA polymerase IV ( Pol IV ) , RNA-dependent RNA polymerase 2 ( RDR2 ) and DICER-like 3 ( DCL3 ) . However , siRNA precursors are mostly undefined . We identified Pol IV and RDR2-dependent RNAs ( P4R2 RNAs ) that accumulate in dcl3 mutants and are diced into 24 nt RNAs by DCL3 in vitro . P4R2 RNAs are mostly 26-45 nt and initiate with a purine adjacent to a pyrimidine , characteristics shared by Pol IV transcripts generated in vitro . RDR2 terminal transferase activity , also demonstrated in vitro , A recent study reported the identification of Pol IV and RDR2-dependent RNAs whose characteristics included a 5’-monophosphate group , a correspondence to known 24 nt siRNA-producing loci and accumulation in dcl2/3/4 triple mutants ( Li et al . , 2015 ) . These transcripts were deduced to be hundreds of nucleotides in length , on average , based on the computational joining of overlapping RNA-seq reads ( Li et al . , 2015 ) . In general , the P4R2 RNAs we identified have similar properties to the RNAs defined by Li et al . , with 20 of the 22 loci scrutinized most carefully by Li et al . matching P4R2 RNAs from our study . Thus , our results extend the results of Li et al . , but indicate that the vast majority of Pol IV and RDR2-dependent RNAs are smaller than 45 nt ( see Figure 3 )
+
+MODEL: lora
+CONFIG: C
+GENERATED TOKENS: 255
+EOS GENERATED: False
+MAX LENGTH REACHED: True
+REPEATED TRIGRAM RATIO: 0.0
+
+GENERATED SUMMARY:
+Pol IV and RDR2-dependent RNAs are a synthesis of a single nucleotide , a complex RNA that is a key component of the cytosine methylation and silencing of transposons . The RNA polymerase IV , which is , in fact , the RNA-dependent ribosome , is characterized by a 5-monophosphate group , and a 5’-monophospholipid group . Pol V and RRD2-dependent RDR2 RNA are characterized as a combination of RNA and RNA . These RNA precursors are found in dcl3 mutants . In ddc , these RNA sequences are encoded by RNA molecules . They are grouped into a group of dsc . This group is grouped in a sequence of cl-3 , or cc-3 . It is arranged in csc-3 and cd-3 sc. The sequences of psc-4 and dl-3 are arranged into cn
+
+MODEL: zero_shot
+CONFIG: C
+GENERATED TOKENS: 34
+EOS GENERATED: True
+MAX LENGTH REACHED: False
+REPEATED TRIGRAM RATIO: 0.0
+
+GENERATED SUMMARY:
+Pol IV and RDR2-dependent RNAs are a relatively small number of RNA-producing loci in Arabidopsis thaliana.
+
+
+====================================================================================================
+SAMPLE ID: 55
+ARTICLE ID: 1339cf0806aac58c617d2e41985ba220acdbd4a680cf8f5fa7ae775eeed0239c
+TITLE: The β-alanine transporter BalaT is required for visual neurotransmission in Drosophila
+
+INPUT TOKEN COUNT: 512
+
+MODEL INPUT:
+Summarize the following biomedical research article in plain language for a general audience: The recycling of neurotransmitters is essential for sustained synaptic transmission . In Drosophila , histamine recycling is required for visual synaptic transmission . Synaptic histamine is rapidly taken up by laminar glia , and is converted to carcinine . After delivered back to photoreceptors , carcinine is hydrolyzed to release histamine and -alanine . This histamine is repackaged into synaptic vesicles , but it is unclear how the -alanine is returned to the laminar glial cells . Here , we identified a new -alanine transporter , which we named BalaT ( Beta-alanine Transporter ) . Null balat mutants exhibited lower levels of -alanine , as well as less -alanine accumulation in the retina . Moreover , BalaT is expressed and required in retinal pigment cells for maintaining visual synaptic transmission and phototaxis In Drosophila photoreceptors , carcinine is hydrolyzed to form histamine and -alanine ( True et al . , 2005; Wagner et al . , 2007 ) . Histamine is then released as a neurotransmitter , taken up by laminar glial cells , and then conjugated with -alanine to form carcinine . Although it is known that CarT transports carcinine into photoreceptors , it is unclear how -alanine is delivered to laminar glia . To begin to understand this process , we sought to identify a -alanine transporter in the fly visual system . We speculated that a transporter responsible for -alanine uptake would likely be enriched in fly heads , so we examined previous RNA-seq data comparing mRNAs isolated from the head with mRNAs isolated from the body ( Xu and Wang , 2016 ) .
+
+MODEL: lora
+CONFIG: C
+GENERATED TOKENS: 242
+EOS GENERATED: True
+MAX LENGTH REACHED: False
+REPEATED TRIGRAM RATIO: 0.004166666666666667
+
+GENERATED SUMMARY:
+The -alanine transporter is a neurotransmitter . It is repackaged into a glial cell . The glia cells are repacked into gliar cells . Carcinine is hydrolyzed to release histamine and  alanines . This alanin is reagents of histidine and a carrier .  the  is absorbed by histmina . He is subsequently absorbed into the gliosomes . Histamine is then re-packaged to form histmine . In Drosophila , histinine was reloaded into helium . A  carrier ,  and heliosome , is derived from a null balat mutant . We found that  carcinines are a messenger . These  are derived by a carcine transporting a cell , which is able to transport  to the helial cells , and ''  can be regenerated .
+
+MODEL: zero_shot
+CONFIG: C
+GENERATED TOKENS: 39
+EOS GENERATED: True
+MAX LENGTH REACHED: False
+REPEATED TRIGRAM RATIO: 0.0
+
+GENERATED SUMMARY:
+Carcinine is a neurotransmitter that is repackaged into glial cells and then conjugated with -alanine to form carcinines.
+
+
+====================================================================================================
+SAMPLE ID: 62
+ARTICLE ID: 71c1fef70e84f8b2a4bc05c9de4e1620a1503847839c4e7aa1faad2c75475ff7
+TITLE: Slit2 as a β-catenin/Ctnnb1-dependent retrograde signal for presynaptic differentiation
+
+INPUT TOKEN COUNT: 512
+
+MODEL INPUT:
+Summarize the following biomedical research article in plain language for a general audience: Neuromuscular junction formation requires proper interaction between motoneurons and muscle cells . -Catenin ( Ctnnb1 ) in muscle is critical for motoneuron differentiation; however , little is known about the relevant retrograde signal . In this paper , we dissected which functions of muscle Ctnnb1 are critical by an in vivo transgenic approach . We show that Ctnnb1 mutant without the transactivation domain was unable to rescue presynaptic deficits of Ctnnb1 mutation , indicating the involvement of transcription regulation . On the other hand , the cell-adhesion function of Ctnnb1 is dispensable . We screened for proteins that may serve as a Ctnnb1-directed retrograde factor and identified Slit2 . Transgenic expression of Slit2 specifically in the muscle was able to diminish presynaptic deficits by Ctnnb1 mutation in mice . Slit2 immobilized on beads was able to induce synapto Many molecules have been identified to regulate presynaptic differentiation at the NMJ . For example , muscle-derived FGF 7/10/22 and collagens IV and XIII were shown to induce synaptic vesicle clusters at nerve terminals or regulate presynaptic maturation ( Fox et al . , 2007; Latvanlehto et al . , 2010 ) . In Drosophila , wishful thinking and Glass bottom boat , a TGF receptor and ligand , respectively , were shown to be important for presynaptic T-bar formation ( Marques et al . , 2000; McCabe et al . , 2003 , 2004 ) . GDNF ( glial cell derived neurotrophic factor ) , known to affect motoneuron survival in vitro , was shown to affect pre- and post-synaptic neurotransmission in frog neuron-muscle co-cultures ( Oppenheim e
+
+MODEL: lora
+CONFIG: C
+GENERATED TOKENS: 226
+EOS GENERATED: True
+MAX LENGTH REACHED: False
+REPEATED TRIGRAM RATIO: 0.004464285714285714
+
+GENERATED SUMMARY:
+Ctnnb1 is a key factor in the development of neuromuscular junction formation . It is mainly involved in the synthesis of a protein called -Catenin , which is derived from the   catenin gene . The protein is , which has been identified as a CtNb1-directed retrograde factor . This is mediated by the transcriptional regulation of the RNA . In vivo , Ct Nb1 mutants are unable to rescue presynaptic deficits of CtNPb1 mutation . These findings suggest that CtNB1 is responsible for the development and development of neurons . Interestingly , the glial cell derived neurotrophic factor , Catenine , is able to induce synaptic vesicle clusters at nerve terminals . Ct nb1, a glia , has been shown to be important for the early development of gliar veses .
+
+MODEL: zero_shot
+CONFIG: C
+GENERATED TOKENS: 16
+EOS GENERATED: True
+MAX LENGTH REACHED: False
+REPEATED TRIGRAM RATIO: 0.0
+
+GENERATED SUMMARY:
+-Catenin is critical for motoneuron differentiation in mice.
+
+
+====================================================================================================
+SAMPLE ID: 79
+ARTICLE ID: f5d5ba94222d329268fa3f32ab948e48fdb48ce104a2b988fdf939ecc88fc816
+TITLE: Sodium taurocholate cotransporting polypeptide is a functional receptor for human hepatitis B and D virus
+
+INPUT TOKEN COUNT: 512
+
+MODEL INPUT:
+Summarize the following biomedical research article in plain language for a general audience: Human hepatitis B virus ( HBV ) infection and HBV-related diseases remain a major public health problem . Individuals coinfected with its satellite hepatitis D virus ( HDV ) have more severe disease . Cellular entry of both viruses is mediated by HBV envelope proteins . The pre-S1 domain of the large envelope protein is a key determinant for receptor ( s ) binding . However , the identity of the receptor ( s ) is unknown . Here , by using near zero distance photo-cross-linking and tandem affinity purification , we revealed that the receptor-binding region of pre-S1 specifically interacts with sodium taurocholate cotransporting polypeptide ( NTCP ) , a multiple transmembrane transporter predominantly expressed in the liver . Silencing NTCP inhibited HBV and HDV infection , while exogenous NTCP expression rendered nonsusceptible hepatocarcinoma cells susceptible to these viral infections . Moreover , replacing amino acids 1 To identify the pre-S1 interacting molecule ( s ) , we employed a photo-cross-linking approach using a synthetic peptide derived from the native pre-S1 peptide with particular residues replaced by nonnatural amino acids ( L-photo-leucine , L-2-amino-4 , 4-azi-pentanoic acid ) ( Figure 1A ) . L-photo-leucine contains a photoactivatable diazirine ring . Irradiation of ultraviolet ( UV ) light at 365 nm induces a loss of nitrogen of the diazirine ring and yields a reactive carbene group with short half-life for covalent cross-linking at nearly zero distance ( Suchanek et al . , 2005 ) . Primary hepatocytes isolated from treeshrews ( Tupaia belangeri ) , the only species susceptible to human HBV infection other than humans and chimpanzees ( Su et al . ,
+
+MODEL: lora
+CONFIG: C
+GENERATED TOKENS: 252
+EOS GENERATED: True
+MAX LENGTH REACHED: False
+REPEATED TRIGRAM RATIO: 0.0
+
+GENERATED SUMMARY:
+The pre-S1 domain of the hepatitis B virus is a key determinant for the receptor-binding region of the large envelope protein . The receptor- binding region of NTCP is regulated by the sodium taurocholate cotransporting polypeptide , a multitransmembrane transporter . In addition to the NTTP , the nitrate , which is derived from the pre-s1 peptide, is characterized by a cellular peptida . NTP is mediated by NTPC , an enzyme that is primarily involved in the cellular transport of the protein , and is mainly involved in cellular transmission . These peptidates are a complex peptidate that is used to transport the protein to the liver . This peptidy is based on the peptidose . It is essentially a single peptidant . A single molecule of a protein containing NTC is able to transport NTTC , but it is not able . However , it is unable to transport it .
+
+MODEL: zero_shot
+CONFIG: C
+GENERATED TOKENS: 20
+EOS GENERATED: True
+MAX LENGTH REACHED: False
+REPEATED TRIGRAM RATIO: 0.0
+
+GENERATED SUMMARY:
+Viruses interacting with pre-S1 interacting molecule NTCP .
+
+
+====================================================================================================
+SAMPLE ID: 82
+ARTICLE ID: 17dc3ce586826abba29de3893ae3ac9c8346f7a52bcc73a32061aa9b8a9f0f22
+TITLE: A systematic view on influenza induced host shutoff
+
+INPUT TOKEN COUNT: 512
+
+MODEL INPUT:
+Summarize the following biomedical research article in plain language for a general audience: Host shutoff is a common strategy used by viruses to repress cellular mRNA translation and concomitantly allow the efficient translation of viral mRNAs . Here we use RNA-sequencing and ribosome profiling to explore the mechanisms that are being utilized by the Influenza A virus ( IAV ) to induce host shutoff . We show that viral transcripts are not preferentially translated and instead the decline in cellular protein synthesis is mediated by viral takeover on the mRNA pool . Our measurements also uncover strong variability in the levels of cellular transcripts reduction , revealing that short transcripts are less affected by IAV . Interestingly , these mRNAs that are refractory to IAV infection are enriched in cell maintenance processes such as oxidative phosphorylation . Furthermore , we show that the continuous oxidative phosphorylation activity is important for viral propagation . Our results advance our understanding of IAV-induced shutoff , and suggest a mechanism that facilitates the translation of genes with important housekeeping functions . To gain a detailed view of the changes that occur in viral and host transcripts abundance and translation over the course of IAV infection , we infected A549 cells with the A/Puerto Rico/8/1934 H1N1 ( PR8 ) strain at MOI = 5 and harvested cells at 2 , 4 , and 8 hr post infection ( hpi ) . We designed our experiment to simultaneously monitor both RNA levels and translation ( Figure 1A ) . Deep sequencing of mRNA ( RNA-seq ) allows a detailed mapping of transcript levels during infection and these were paired with ribosome footprints , which allow accurate measurement of protein synthesis by capturing the overall in vivo distribution of ribosomes on a given message ( Ingolia et al . , 2011 ) . In order to assess the reproducibility of our experiments we prepared two independent biological replicates for each of these time points . Both the mRNA and footprints read density measurements were reproducible ( Figure 1B ) . We quantitatively
+
+MODEL: lora
+CONFIG: C
+GENERATED TOKENS: 82
+EOS GENERATED: True
+MAX LENGTH REACHED: False
+REPEATED TRIGRAM RATIO: 0.0
+
+GENERATED SUMMARY:
+We analyzed the mRNA and ribosome data to determine the cellular transcripts of influenza A virus . We found that the ribometes were enriched in cellular protein synthesis . Our results demonstrate that the effect of riboflavin on viral mnRNAs is a mechanism that facilitates the translation of genes with important housekeeping functions .
+
+MODEL: zero_shot
+CONFIG: C
+GENERATED TOKENS: 33
+EOS GENERATED: True
+MAX LENGTH REACHED: False
+REPEATED TRIGRAM RATIO: 0.0
+
+GENERATED SUMMARY:
+RNA-seq and ribosome profiling of viral and host transcripts reveal the mechanisms involved in the translation of viral mRNAs.
+
+
+====================================================================================================
+SAMPLE ID: 93
+ARTICLE ID: b6cbc431bf1a211252ffafa2c9138423d1ed8544e277512cefba6124171c2e98
+TITLE: Epsin deficiency impairs endocytosis by stalling the actin-dependent invagination of endocytic clathrin-coated pits
+
+INPUT TOKEN COUNT: 512
+
+MODEL INPUT:
+Summarize the following biomedical research article in plain language for a general audience: Epsin is an evolutionarily conserved endocytic clathrin adaptor whose most critical function ( s ) in clathrin coat dynamics remain ( s ) elusive . To elucidate such function ( s ) , we generated embryonic fibroblasts from conditional epsin triple KO mice . Triple KO cells displayed a dramatic cell division defect . Additionally , a robust impairment in clathrin-mediated endocytosis was observed , with an accumulation of early and U-shaped pits . This defect correlated with a perturbation of the coupling between the clathrin coat and the actin cytoskeleton , which we confirmed in a cell-free assay of endocytosis . Our results indicate that a key evolutionary conserved function of epsin , in addition to other roles that include , as we show here , a low affinity interaction with SNAREs , is to help generate the force that leads to invagination and Previous reports have addressed the role of epsin in endocytosis . However , studies in different organisms and in cell-free systems had emphasized the different aspects of its function , so that a complete picture of its physiological role ( s ) has remained elusive . Elucidation of epsin function in mammalian cells had been complicated by the existence of the three Epn genes with overlapping functions . To overcome this problem , we have generated cells that lack all the three epsins by a conditional KO approach involving the OHT-dependent disruption of the Epn1 gene in epsin 2 and 3 double KO mice . A main conclusion of our study is the occurrence of a close coupling between the function of epsin and the dynamics of the actin cytoskeleton . While such coupling had been suggested by studies in unicellular organisms , studies of epsin in cells of metazoan had emphasized its role as a bilayer deforming protein ( Ford et
+
+MODEL: lora
+CONFIG: C
+GENERATED TOKENS: 255
+EOS GENERATED: False
+MAX LENGTH REACHED: True
+REPEATED TRIGRAM RATIO: 0.0
+
+GENERATED SUMMARY:
+epsin is a key evolutionary conserved endocytic clathrin adaptor whose most critical function s , in clatrin coat dynamics , remains elusive . We demonstrated that eppsin , a clatherin cytoskeleton , is elusive in the clathirin-mediated endocytosis . This is mainly due to the occurrence of a close coupling between the function of empsin and the dynamics of the actin . emphysema , which is characterized by a low affinity interaction with SNAREs . The eep cytoskeletal structure is essentially a complex e-protein , and the etylcholine , the s-terminal , has a relatively small styrofoam . In a study , we found that a small epethrine cytose , known as espsi , was a functional entomologist . Our results suggest that 
+
+MODEL: zero_shot
+CONFIG: C
+GENERATED TOKENS: 47
+EOS GENERATED: True
+MAX LENGTH REACHED: False
+REPEATED TRIGRAM RATIO: 0.0
+
+GENERATED SUMMARY:
+epsin is an evolutionarily conserved endocytic clathrin adaptor whose most critical function ( s ) in clathirin coat dynamics remain elusive .
+
+
+====================================================================================================
+SAMPLE ID: 94
+ARTICLE ID: b91ae9fe362736529a9479c5a2ce277226e3f2df1f535afd2ac660f9c43a9a72
+TITLE: Post-transcriptional regulation of satellite cell quiescence by TTP-mediated mRNA decay
+
+INPUT TOKEN COUNT: 512
+
+MODEL INPUT:
+Summarize the following biomedical research article in plain language for a general audience: Skeletal muscle satellite cells in their niche are quiescent and upon muscle injury , exit quiescence , proliferate to repair muscle tissue , and self-renew to replenish the satellite cell population . To understand the mechanisms involved in maintaining satellite cell quiescence , we identified gene transcripts that were differentially expressed during satellite cell activation following muscle injury . Transcripts encoding RNA binding proteins were among the most significantly changed and included the mRNA decay factor Tristetraprolin . Tristetraprolin promotes the decay of MyoD mRNA , which encodes a transcriptional regulator of myogenic commitment , via binding to the MyoD mRNA 3′ untranslated region . Upon satellite cell activation , p38/ MAPK phosphorylates MAPKAP2 and inactivates Tristetraprolin , stabilizing MyoD mRNA . Satellite cell specific knockdown of Tristetraprolin precociously activates satellite cells in vivo , enabling MyoD accumulation , differentiation and cell fusion into my Transitioning from a quiescent SC to an activated SC involves large-scale changes in mRNA expression as well as changes in miRNAs ( Farina et al . , 2012 ) and subsequent events that permit SCs to begin DNA synthesis and proliferate as myoblasts ( Jones et al . , 2005 ) . To identify regulators involved in SC activation and myoblast commitment , we compared restricted gene expression profiles of FACS-enriched SCs isolated from uninjured muscle with expression profiles from SCs isolated 12 hr post-injury from wild type and Syndecan 4 ( Sdc4 ) / mice ( Farina et al . , 2012 ) . Syndecan-4 null SCs are incapable of muscle repair , exhibit severely delayed activation , aberrant MyoD expression , poor growth kinetics , fail to self-renew ( Cornelison et al . , 2004; Hall et al . , 2010 ) and thus ,
+
+MODEL: lora
+CONFIG: C
+GENERATED TOKENS: 255
+EOS GENERATED: False
+MAX LENGTH REACHED: True
+REPEATED TRIGRAM RATIO: 0.0
+
+GENERATED SUMMARY:
+The mRNA decay factor Tristetraprolin is a transcriptional regulator of myogenic commitment . The molecule is regulated by the MyoD mrRNA 3′ untranslated region . Tristetaprolin promotes myogenic engagement , which is mediated by the mnRNA decay Factor Tristeraprolin . During the activation of the molecule , the molene msRNA is phosphorylated by the myoD and phosphoricates the MyOD . This molecule activates myod accumulation , differentiation and cell fusion . In the synthesis of myoblasts , a molecule of the Myogenic commitment factor is enriched by the IoD. The Iod is characterized by a high-resolution molecule that is able to produce a protein that can be absorbed by the cell . It is unable to produce the protein . However , it is soluble in the nitric oxide , and the ribosome is absorbed through the stroma . A molecule called Tristeroprolin activates
+
+MODEL: zero_shot
+CONFIG: C
+GENERATED TOKENS: 20
+EOS GENERATED: True
+MAX LENGTH REACHED: False
+REPEATED TRIGRAM RATIO: 0.0
+
+GENERATED SUMMARY:
+Molecular and biological mechanisms of skeletal muscle cell activation and myoblast commitment
+

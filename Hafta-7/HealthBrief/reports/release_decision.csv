@@ -1,0 +1,3 @@
+release_type,decision,checkpoint,generation_config,reason,usage_restriction,production_ready
+research_prototype,APPROVED,checkpoint-96,C,"Completed controlled fine-tuning, independent holdout evaluation, bootstrap analysis and documented factuality limitations.",Educational and research use only. Public distribution requires license verification.,False
+production_deployment,REJECTED,checkpoint-96,C,"Scientific contradictions, low supported claim rate, terminology errors, incomplete summaries and insufficient key finding coverage.",Not suitable for automated scientific or clinical decision-making.,False

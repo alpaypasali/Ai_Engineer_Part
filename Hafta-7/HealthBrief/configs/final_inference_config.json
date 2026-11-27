@@ -1,0 +1,56 @@
+{
+    "environment": {
+        "cuda_version": "13.0",
+        "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU",
+        "peft_version": "0.22.0",
+        "torch_version": "2.14.1+cu130",
+        "transformers_version": "5.14.1"
+    },
+    "evaluation": {
+        "configuration_selected_before_holdout": true,
+        "final_evaluation_split": "final_holdout",
+        "model_selection_split": "validation"
+    },
+    "generation": {
+        "config_name": "C",
+        "do_sample": false,
+        "forced_eos_token_id": null,
+        "max_length": 256,
+        "max_new_tokens": null,
+        "no_repeat_ngram_size": 3,
+        "num_beams": 1,
+        "repetition_penalty": 1.0,
+        "use_cache": null
+    },
+    "model": {
+        "adapter_path": "models/healthbrief_best_adapter",
+        "base_model": "google/flan-t5-small",
+        "base_revision": "0fc9ddf78a1e988dac52e2dac162b0ede4fd74ab",
+        "checkpoint": "checkpoint-96",
+        "loaded_base_revision": "0fc9ddf78a1e988dac52e2dac162b0ede4fd74ab",
+        "lora_rank": 8,
+        "peft_method": "LoRA",
+        "total_parameters": 77305216,
+        "trainable_parameters": 0
+    },
+    "precision": {
+        "bf16_autocast_enabled": true,
+        "inference_precision": "bf16_autocast",
+        "model_dtype": "torch.float32",
+        "training_precision": "bf16_mixed_precision"
+    },
+    "preprocessing": {
+        "max_input_length": 512,
+        "max_target_length": 768,
+        "source_selection_version": "V1"
+    },
+    "project": "HealthBrief",
+    "seed": 42,
+    "tokenizer": {
+        "class": "T5Tokenizer",
+        "eos_token_id": 1,
+        "pad_token_id": 0,
+        "path": "models/healthbrief_best_adapter",
+        "vocab_size": 32100
+    }
+}

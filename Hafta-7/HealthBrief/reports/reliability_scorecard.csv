@@ -1,0 +1,12 @@
+category,metric,zero_shot,lora,sample_count,evaluation_source
+Summarization Quality,ROUGE-L,3.7465185714406353,14.359852769589338,100,holdout
+Repetition,Repeated Trigram Ratio,0.0004,0.0005585124948761178,100,holdout
+Termination,Early EOS Rate (%),100.0,60.0,100,holdout
+Factuality,Input Supported Claim Rate (%),61.53846153846154,35.41666666666667,10,factuality
+Factuality,Full-Article Supported Claim Rate (%),61.53846153846154,35.41666666666667,10,factuality
+Contradictions,Explicit Contradiction Count,5.0,18.0,10,factuality
+Information Coverage,Key Finding Coverage (%),0.0,0.0,10,factuality
+Output Quality,Empty Output Rate (%),0.0,0.0,100,holdout
+Output Quality,Uninterpretable Summary Count,1.0,10.0,10,factuality
+Output Quality,Invalid Output Rate (%),,,100,not_measured_beyond_empty_outputs
+Efficiency,Mean Inference Time (seconds),,,100,not_measured_per_model

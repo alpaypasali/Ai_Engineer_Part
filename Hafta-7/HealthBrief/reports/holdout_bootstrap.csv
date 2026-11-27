@@ -1,0 +1,2 @@
+metric,comparison,config,sample_count,bootstrap_iterations,seed,bootstrap_method,confidence_level,observed_difference,aggregated_rougeL_difference,bootstrap_mean_difference,bootstrap_standard_error,ci_lower,ci_upper,ci_contains_zero,lora_wins,zero_shot_wins,ties
+rougeL,lora_minus_zero_shot,C,100,1000,42,paired_percentile_bootstrap,0.95,10.605736731671723,10.613334198148703,10.59620521743611,0.3453147798869676,9.940739218357008,11.230661392152019,False,98,2,0
